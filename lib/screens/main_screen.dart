@@ -3,8 +3,8 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../screens/welcome_screen.dart';
 import '../screens/tours_screen.dart';
 import '../screens/map_screen.dart';
-import '../screens/favorites_screen.dart';
 import '../screens/profile_screen.dart';
+import '../screens/checklist_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -25,9 +25,9 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> _buildScreens() {
     return [
       const WelcomeScreen(),
-      const ToursScreen(),
+      const PlacesScreen(),
+      const ChecklistScreen(),
       const MapScreen(),
-      const FavoritesScreen(),
       const ProfileScreen(),
     ];
   }
@@ -42,22 +42,22 @@ class _MainScreenState extends State<MainScreen> {
         activeColorSecondary: const Color(0xFF1C1C24),
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.map),
-        title: "Tours",
-        activeColorPrimary: CupertinoColors.white,
-        inactiveColorPrimary: const Color(0xFF9E9E9E),
-        activeColorSecondary: const Color(0xFF1C1C24),
-      ),
-      PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.location_solid),
-        title: "Map",
+        title: "Places",
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: const Color(0xFF9E9E9E),
         activeColorSecondary: const Color(0xFF1C1C24),
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.heart),
-        title: "Favorites",
+        icon: const Icon(CupertinoIcons.checkmark_circle),
+        title: "Checklist",
+        activeColorPrimary: CupertinoColors.white,
+        inactiveColorPrimary: const Color(0xFF9E9E9E),
+        activeColorSecondary: const Color(0xFF1C1C24),
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(CupertinoIcons.map),
+        title: "Map",
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: const Color(0xFF9E9E9E),
         activeColorSecondary: const Color(0xFF1C1C24),
