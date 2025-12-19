@@ -1,11 +1,53 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import 'package:apple_maps_flutter/apple_maps_flutter.dart';
 import '../providers/app_provider.dart';
 import 'place_detail_screen.dart';
-import 'dart:math' as math;
 
-class MapScreen extends StatelessWidget {
+class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
+
+  @override
+  State<MapScreen> createState() => _MapScreenState();
+}
+
+class _MapScreenState extends State<MapScreen> {
+  late AppleMapController _mapController;
+  final Set<Annotation> _annotations = {};
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _createAnnotations();
+    });
+  }
+
+  void _createAnnotations() {
+    final provider = Provider.of<AppProvider>(context, listen: false);
+    setState(() {
+      _annotations.clear();
+      for (final place in provider.places) {
+        _annotations.add(
+          Annotation(
+            annotationId: AnnotationId(place.id),
+            position: LatLng(place.latitude, place.longitude),
+            infoWindow: InfoWindow(
+              title: place.name,
+              snippet: place.location,
+              onTap: () {
+                Navigator.of(context).push(
+                  CupertinoPageRoute(
+                    builder: (context) => PlaceDetailScreen(place: place),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,140 +67,35 @@ class MapScreen extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            // Map with pins
+            // Apple Maps
             Container(
               height: 320,
               margin: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFF232332),
                 borderRadius: BorderRadius.circular(12),
-              ),
-              child: Stack(
-                children: [
-                  // Map background with gradient
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          const Color(0xFF2A2A3A),
-                          const Color(0xFF1C1C24),
-                        ],
-                      ),
-                    ),
-                    child: CustomPaint(
-                      painter: _MapGridPainter(),
-                      size: Size.infinite,
-                    ),
-                  ),
-                  // Egypt outline
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          '🇪🇬',
-                          style: TextStyle(fontSize: 80),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Egypt - ${places.length} Locations',
-                          style: const TextStyle(
-                            color: Color(0xFF9E9E9E),
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Place markers
-                  ...places.asMap().entries.map((entry) {
-                    final index = entry.key;
-                    final place = entry.value;
-                    
-                    // Create pseudo-random but consistent positions
-                    final random = math.Random(place.id.hashCode);
-                    final angle = (index / places.length) * 2 * math.pi;
-                    final radius = 80.0 + random.nextDouble() * 40;
-                    
-                    final left = 150 + radius * math.cos(angle);
-                    final top = 150 + radius * math.sin(angle);
-
-                    return Positioned(
-                      left: left,
-                      top: top,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            CupertinoPageRoute(
-                              builder: (context) => PlaceDetailScreen(place: place),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: CupertinoColors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: CupertinoColors.black.withAlpha(76),
-                                blurRadius: 8,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                            border: Border.all(
-                              color: const Color(0xFF232332),
-                              width: 2,
-                            ),
-                          ),
-                          child: Center(
-                            child: Text(
-                              place.imageEmoji,
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-                  // Legend
-                  Positioned(
-                    bottom: 12,
-                    right: 12,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF1C1C24).withAlpha(230),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Icon(
-                            CupertinoIcons.location_fill,
-                            color: CupertinoColors.white,
-                            size: 16,
-                          ),
-                          SizedBox(width: 4),
-                          Text(
-                            'Tap marker to view details',
-                            style: TextStyle(
-                              color: CupertinoColors.white,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                boxShadow: [
+                  BoxShadow(
+                    color: CupertinoColors.black.withAlpha(51),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
                   ),
                 ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: AppleMap(
+                  onMapCreated: (controller) {
+                    _mapController = controller;
+                  },
+                  initialCameraPosition: const CameraPosition(
+                    target: LatLng(26.8206, 30.8025), // Center of Egypt
+                    zoom: 5.5,
+                  ),
+                  annotations: _annotations,
+                  myLocationEnabled: false,
+                  myLocationButtonEnabled: false,
+                  mapType: MapType.standard,
+                ),
               ),
             ),
             // Locations list
@@ -194,6 +131,16 @@ class MapScreen extends StatelessWidget {
                   final place = places[index];
                   return GestureDetector(
                     onTap: () {
+                      // Move camera to place
+                      _mapController.animateCamera(
+                        CameraUpdate.newCameraPosition(
+                          CameraPosition(
+                            target: LatLng(place.latitude, place.longitude),
+                            zoom: 12.0,
+                          ),
+                        ),
+                      );
+                      // Navigate to detail
                       Navigator.of(context).push(
                         CupertinoPageRoute(
                           builder: (context) => PlaceDetailScreen(place: place),
@@ -250,8 +197,8 @@ class MapScreen extends StatelessWidget {
                             ),
                           ),
                           const Icon(
-                            CupertinoIcons.chevron_right,
-                            color: Color(0xFF9E9E9E),
+                            CupertinoIcons.location_fill,
+                            color: CupertinoColors.white,
                             size: 20,
                           ),
                         ],
@@ -266,39 +213,4 @@ class MapScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-// Custom painter for map grid
-class _MapGridPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = const Color(0xFF9E9E9E).withAlpha(20)
-      ..strokeWidth = 1
-      ..style = PaintingStyle.stroke;
-
-    // Draw grid lines
-    const gridSize = 40.0;
-    
-    // Vertical lines
-    for (double x = 0; x < size.width; x += gridSize) {
-      canvas.drawLine(
-        Offset(x, 0),
-        Offset(x, size.height),
-        paint,
-      );
-    }
-    
-    // Horizontal lines
-    for (double y = 0; y < size.height; y += gridSize) {
-      canvas.drawLine(
-        Offset(0, y),
-        Offset(size.width, y),
-        paint,
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

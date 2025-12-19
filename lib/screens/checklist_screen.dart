@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import '../providers/app_provider.dart';
 import 'scam_warnings_screen.dart';
 
@@ -237,14 +239,17 @@ class _ChecklistItemCard extends StatelessWidget {
               ],
             ),
           ),
-          // Photo indicator
+          // Photo indicator with tap to view
           if (item.photoPath != null)
-            const Padding(
-              padding: EdgeInsets.only(left: 8),
-              child: Icon(
-                CupertinoIcons.photo_fill,
-                color: CupertinoColors.white,
-                size: 24,
+            GestureDetector(
+              onTap: () => _showPhotoPreview(context, item.photoPath!),
+              child: const Padding(
+                padding: EdgeInsets.only(left: 8),
+                child: Icon(
+                  CupertinoIcons.photo_fill,
+                  color: CupertinoColors.white,
+                  size: 24,
+                ),
               ),
             ),
         ],
@@ -252,8 +257,100 @@ class _ChecklistItemCard extends StatelessWidget {
     );
   }
 
+  void _showPhotoPreview(BuildContext context, String photoPath) {
+    showCupertinoDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) {
+        final size = MediaQuery.of(context).size;
+        return Center(
+          child: Container(
+            constraints: BoxConstraints(
+              maxWidth: size.width * 0.9,
+              maxHeight: size.height * 0.8,
+            ),
+            child: CupertinoAlertDialog(
+              content: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: size.height * 0.6,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.file(
+                        File(photoPath),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                CupertinoDialogAction(
+                  child: const Text('Закрыть'),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   String _formatDate(DateTime date) {
     return '${date.day}/${date.month}/${date.year}';
+  }
+
+  Future<void> _pickImage(BuildContext context, AppProvider provider, String itemId, ImageSource source) async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(
+        source: source,
+        maxWidth: 1920,
+        maxHeight: 1080,
+        imageQuality: 85,
+      );
+
+      if (image != null) {
+        // Update the checklist item with photo path
+        provider.updateChecklistItemPhoto(itemId, image.path);
+        provider.toggleChecklistItem(itemId);
+        
+        if (context.mounted) {
+          _showSuccessMessage(context);
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        String errorMessage = 'Failed to pick image: $e';
+        
+        // Check for camera not available error
+        if (e.toString().contains('camera_access_denied') || 
+            e.toString().contains('Camera not found') ||
+            e.toString().toLowerCase().contains('camera')) {
+          errorMessage = source == ImageSource.camera 
+              ? 'Камера недоступна на симуляторе.\nИспользуйте реальное устройство или выберите фото из галереи.'
+              : 'Не удалось получить доступ к галерее.';
+        }
+        
+        showCupertinoDialog(
+          context: context,
+          builder: (context) => CupertinoAlertDialog(
+            title: const Text('Ошибка'),
+            content: Text(errorMessage),
+            actions: [
+              CupertinoDialogAction(
+                child: const Text('OK'),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+        );
+      }
+    }
   }
 
   void _showPhotoOptions(BuildContext context, AppProvider provider, String itemId) {
@@ -267,20 +364,14 @@ class _ChecklistItemCard extends StatelessWidget {
             child: const Text('Take Photo'),
             onPressed: () {
               Navigator.pop(context);
-              // Simulate adding photo
-              provider.updateChecklistItemPhoto(itemId, 'photo_path');
-              provider.toggleChecklistItem(itemId);
-              _showSuccessMessage(context);
+              _pickImage(context, provider, itemId, ImageSource.camera);
             },
           ),
           CupertinoActionSheetAction(
             child: const Text('Choose from Library'),
             onPressed: () {
               Navigator.pop(context);
-              // Simulate adding photo
-              provider.updateChecklistItemPhoto(itemId, 'photo_path');
-              provider.toggleChecklistItem(itemId);
-              _showSuccessMessage(context);
+              _pickImage(context, provider, itemId, ImageSource.gallery);
             },
           ),
           CupertinoActionSheetAction(

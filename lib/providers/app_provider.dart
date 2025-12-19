@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 import '../models/place.dart';
 import '../models/checklist_item.dart';
 import '../models/scam_warning.dart';
@@ -8,6 +10,7 @@ class AppProvider extends ChangeNotifier {
   final List<ChecklistItem> _checklistItems = [];
   final List<ScamWarning> _scamWarnings = _generateScamWarnings();
   final Set<String> _favoritePlaceIds = {};
+  bool _isInitialized = false;
 
   List<Place> get places => _places;
   List<ChecklistItem> get checklistItems => _checklistItems;
@@ -24,7 +27,61 @@ class AppProvider extends ChangeNotifier {
 
   double get completionPercentage {
     if (_checklistItems.isEmpty) return 0.0;
-    return completedChecklistCount / totalChecklistCount;
+    return (completedChecklistCount / totalChecklistCount) * 100;
+  }
+
+  Future<void> loadData() async {
+    if (_isInitialized) return;
+    
+    final prefs = await SharedPreferences.getInstance();
+    
+    // Load checklist items
+    final checklistJson = prefs.getString('checklist_items');
+    if (checklistJson != null) {
+      final List<dynamic> decoded = json.decode(checklistJson);
+      _checklistItems.clear();
+      for (var itemData in decoded) {
+        _checklistItems.add(ChecklistItem(
+          id: itemData['id'],
+          placeId: itemData['placeId'],
+          title: itemData['title'],
+          isCompleted: itemData['isCompleted'] ?? false,
+          photoPath: itemData['photoPath'],
+          completedAt: itemData['completedAt'] != null 
+              ? DateTime.parse(itemData['completedAt']) 
+              : null,
+        ));
+      }
+    }
+    
+    // Load favorites
+    final favoritesJson = prefs.getString('favorites');
+    if (favoritesJson != null) {
+      final List<dynamic> decoded = json.decode(favoritesJson);
+      _favoritePlaceIds.clear();
+      _favoritePlaceIds.addAll(decoded.cast<String>());
+    }
+    
+    _isInitialized = true;
+    notifyListeners();
+  }
+
+  Future<void> _saveData() async {
+    final prefs = await SharedPreferences.getInstance();
+    
+    // Save checklist items
+    final checklistData = _checklistItems.map((item) => {
+      'id': item.id,
+      'placeId': item.placeId,
+      'title': item.title,
+      'isCompleted': item.isCompleted,
+      'photoPath': item.photoPath,
+      'completedAt': item.completedAt?.toIso8601String(),
+    }).toList();
+    await prefs.setString('checklist_items', json.encode(checklistData));
+    
+    // Save favorites
+    await prefs.setString('favorites', json.encode(_favoritePlaceIds.toList()));
   }
 
   void toggleFavorite(String placeId) {
@@ -33,6 +90,7 @@ class AppProvider extends ChangeNotifier {
     } else {
       _favoritePlaceIds.add(placeId);
     }
+    _saveData();
     notifyListeners();
   }
 
@@ -42,6 +100,7 @@ class AppProvider extends ChangeNotifier {
 
   void addChecklistItem(ChecklistItem item) {
     _checklistItems.add(item);
+    _saveData();
     notifyListeners();
   }
 
@@ -49,12 +108,14 @@ class AppProvider extends ChangeNotifier {
     final item = _checklistItems.firstWhere((item) => item.id == itemId);
     item.isCompleted = !item.isCompleted;
     item.completedAt = item.isCompleted ? DateTime.now() : null;
+    _saveData();
     notifyListeners();
   }
 
   void updateChecklistItemPhoto(String itemId, String photoPath) {
     final item = _checklistItems.firstWhere((item) => item.id == itemId);
     item.photoPath = photoPath;
+    _saveData();
     notifyListeners();
   }
 
@@ -67,6 +128,7 @@ class AppProvider extends ChangeNotifier {
           title: 'Visit ${place.name}',
         ));
       }
+      _saveData();
       notifyListeners();
     }
   }

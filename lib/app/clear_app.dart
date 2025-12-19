@@ -9,7 +9,11 @@ class ClearApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => AppProvider(),
+      create: (_) {
+        final provider = AppProvider();
+        provider.loadData();
+        return provider;
+      },
       child: const CupertinoApp(
         debugShowCheckedModeBanner: false,
         theme: CupertinoThemeData(

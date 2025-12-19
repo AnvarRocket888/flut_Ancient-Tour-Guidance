@@ -205,25 +205,6 @@ class ProfileScreen extends StatelessWidget {
                   );
                 },
               ),
-              _MenuItem(
-                icon: CupertinoIcons.settings,
-                title: 'Settings',
-                onTap: () {
-                  showCupertinoDialog(
-                    context: context,
-                    builder: (context) => CupertinoAlertDialog(
-                      title: const Text('Settings'),
-                      content: const Text('Settings feature coming soon!'),
-                      actions: [
-                        CupertinoDialogAction(
-                          child: const Text('OK'),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
               const SizedBox(height: 32),
             ],
           ),
