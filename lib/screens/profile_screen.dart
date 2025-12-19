@@ -6,6 +6,9 @@ import '../theme/app_colors.dart';
 import '../theme/app_styles.dart';
 import 'scam_warnings_screen.dart';
 import 'checklist_screen.dart';
+import 'challenges_screen.dart';
+import 'fortune_wheel_screen.dart';
+import 'artifact_collection_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -226,8 +229,45 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 24),
               // Menu items
               _MenuItem(
-                icon: CupertinoIcons.exclamationmark_shield_fill,
+                icon: CupertinoIcons.sparkles,
+                title: '🔮 Fortune Wheel',
+                subtitle: 'Daily mystical quest from ancient gods',
+                onTap: () {
+                  Navigator.of(context).push(
+                    CupertinoPageRoute(
+                      builder: (context) => const FortuneWheelScreen(),
+                    ),
+                  );
+                },
+              ),
+              _MenuItem(
+                icon: CupertinoIcons.cube_box_fill,
+                title: '🏺 Artifact Collection',
+                subtitle: 'Discover legendary Egyptian treasures',
+                onTap: () {
+                  Navigator.of(context).push(
+                    CupertinoPageRoute(
+                      builder: (context) => const ArtifactCollectionScreen(),
+                    ),
+                  );
+                },
+              ),
+              _MenuItem(
+                icon: CupertinoIcons.game_controller_solid,
+                title: '🎮 Game Challenges',
+                subtitle: 'Complete quests and level up skills',
+                onTap: () {
+                  Navigator.of(context).push(
+                    CupertinoPageRoute(
+                      builder: (context) => const ChallengesScreen(),
+                    ),
+                  );
+                },
+              ),
+              _MenuItem(
+                icon: CupertinoIcons.checkmark_circle_fill,
                 title: 'My Checklist',
+                subtitle: 'Track visited places',
                 onTap: () {
                   Navigator.of(context).push(
                     CupertinoPageRoute(

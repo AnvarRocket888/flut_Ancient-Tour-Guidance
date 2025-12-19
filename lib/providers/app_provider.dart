@@ -1,21 +1,58 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'dart:math';
 import '../models/place.dart';
 import '../models/checklist_item.dart';
 import '../models/scam_warning.dart';
+import '../models/challenge.dart';
+import '../models/challenge_category.dart';
+import '../models/artifact.dart';
+import '../models/fortune_reward.dart';
 
 class AppProvider extends ChangeNotifier {
   final List<Place> _places = _generatePlaces();
   final List<ChecklistItem> _checklistItems = [];
   final List<ScamWarning> _scamWarnings = _generateScamWarnings();
   final Set<String> _favoritePlaceIds = {};
+  List<Challenge> _challenges = Challenge.getDefaultChallenges();
+  List<Artifact> _artifacts = Artifact.getDefaultArtifacts();
+  DateTime? _lastFortuneSpinDate;
+  FortuneReward? _todayFortuneReward;
   bool _isInitialized = false;
 
   List<Place> get places => _places;
   List<ChecklistItem> get checklistItems => _checklistItems;
   List<ScamWarning> get scamWarnings => _scamWarnings;
   Set<String> get favoritePlaceIds => _favoritePlaceIds;
+  List<Challenge> get challenges => _challenges;
+  List<Artifact> get artifacts => _artifacts;
+  DateTime? get lastFortuneSpinDate => _lastFortuneSpinDate;
+  FortuneReward? get todayFortuneReward => _todayFortuneReward;
+
+  bool get canSpinFortuneWheel {
+    if (_lastFortuneSpinDate == null) return true;
+    final now = DateTime.now();
+    return now.year != _lastFortuneSpinDate!.year ||
+        now.month != _lastFortuneSpinDate!.month ||
+        now.day != _lastFortuneSpinDate!.day;
+  }
+
+  List<Artifact> get unlockedArtifacts =>
+      _artifacts.where((a) => a.isUnlocked).toList();
+  
+  List<Artifact> get lockedArtifacts =>
+      _artifacts.where((a) => !a.isUnlocked).toList();
+
+  int getArtifactCountByRarity(ArtifactRarity rarity) {
+    return _artifacts
+        .where((a) => a.rarity == rarity && a.isUnlocked)
+        .length;
+  }
+
+  int getTotalArtifactsByRarity(ArtifactRarity rarity) {
+    return _artifacts.where((a) => a.rarity == rarity).length;
+  }
 
   List<Place> get favoritePlaces =>
       _places.where((place) => _favoritePlaceIds.contains(place.id)).toList();
@@ -28,6 +65,128 @@ class AppProvider extends ChangeNotifier {
   double get completionPercentage {
     if (_checklistItems.isEmpty) return 0.0;
     return (completedChecklistCount / totalChecklistCount) * 100;
+  }
+
+  // Challenge methods
+  int getCompletedChallengesCount(ChallengeCategory? category) {
+    if (category == null) {
+      return _challenges.where((c) => c.isCompleted).length;
+    }
+    return _challenges
+        .where((c) => c.category == category && c.isCompleted)
+        .length;
+  }
+
+  int getTotalChallengesCount(ChallengeCategory? category) {
+    if (category == null) {
+      return _challenges.length;
+    }
+    return _challenges.where((c) => c.category == category).length;
+  }
+
+  double getCategoryProgress(ChallengeCategory category) {
+    final total = getTotalChallengesCount(category);
+    if (total == 0) return 0.0;
+    final completed = getCompletedChallengesCount(category);
+    return (completed / total) * 100;
+  }
+
+  List<Challenge> getChallengesByCategory(ChallengeCategory? category) {
+    if (category == null) {
+      // Перемешиваем задания по цветам
+      final shuffled = List<Challenge>.from(_challenges);
+      shuffled.sort((a, b) {
+        // Сортируем по индексу категории, чтобы цвета чередовались
+        final aIndex = ChallengeCategory.values.indexOf(a.category);
+        final bIndex = ChallengeCategory.values.indexOf(b.category);
+        return aIndex.compareTo(bIndex);
+      });
+      // Создаем финальный перемешанный список
+      final result = <Challenge>[];
+      final categories = ChallengeCategory.values.toList();
+      int maxPerCategory = (shuffled.length / categories.length).ceil();
+      
+      for (int i = 0; i < maxPerCategory; i++) {
+        for (var cat in categories) {
+          final items = shuffled.where((c) => c.category == cat).toList();
+          if (i < items.length) {
+            result.add(items[i]);
+          }
+        }
+      }
+      return result;
+    }
+    return _challenges.where((c) => c.category == category).toList();
+  }
+
+  void toggleChallenge(String challengeId) {
+    final challenge = _challenges.firstWhere((c) => c.id == challengeId);
+    challenge.isCompleted = !challenge.isCompleted;
+    
+    // Chance to unlock artifact when completing challenge
+    if (challenge.isCompleted && Random().nextDouble() < 0.3) {
+      _unlockRandomArtifact();
+    }
+    
+    _saveData();
+    notifyListeners();
+  }
+
+  void _unlockRandomArtifact() {
+    final locked = _artifacts.where((a) => !a.isUnlocked).toList();
+    if (locked.isEmpty) return;
+
+    // Weighted random selection by rarity
+    final rand = Random();
+    final roll = rand.nextDouble() * 100;
+    
+    ArtifactRarity targetRarity;
+    if (roll < 50) {
+      targetRarity = ArtifactRarity.common;
+    } else if (roll < 75) {
+      targetRarity = ArtifactRarity.rare;
+    } else if (roll < 90) {
+      targetRarity = ArtifactRarity.epic;
+    } else {
+      targetRarity = ArtifactRarity.legendary;
+    }
+
+    final candidates = locked.where((a) => a.rarity == targetRarity).toList();
+    if (candidates.isEmpty) {
+      // Fallback to any locked artifact
+      final artifact = locked[rand.nextInt(locked.length)];
+      artifact.isUnlocked = true;
+    } else {
+      final artifact = candidates[rand.nextInt(candidates.length)];
+      artifact.isUnlocked = true;
+    }
+  }
+
+  FortuneReward spinFortuneWheel() {
+    if (!canSpinFortuneWheel) {
+      return _todayFortuneReward!;
+    }
+
+    final rewards = FortuneReward.getAllRewards();
+    final random = Random();
+    _todayFortuneReward = rewards[random.nextInt(rewards.length)];
+    _lastFortuneSpinDate = DateTime.now();
+
+    // Small chance to unlock artifact
+    if (random.nextDouble() < 0.15) {
+      _unlockRandomArtifact();
+    }
+
+    _saveData();
+    notifyListeners();
+    return _todayFortuneReward!;
+  }
+
+  void unlockArtifact(String artifactId) {
+    final artifact = _artifacts.firstWhere((a) => a.id == artifactId);
+    artifact.isUnlocked = true;
+    _saveData();
+    notifyListeners();
   }
 
   Future<void> loadData() async {
@@ -62,6 +221,81 @@ class AppProvider extends ChangeNotifier {
       _favoritePlaceIds.addAll(decoded.cast<String>());
     }
     
+    // Load challenges
+    final challengesJson = prefs.getString('challenges');
+    if (challengesJson != null) {
+      final List<dynamic> decoded = json.decode(challengesJson);
+      final loadedChallenges = decoded.map((data) => Challenge.fromJson(data)).toList();
+      
+      // Check if we need to migrate (old challenges count vs new count)
+      final defaultChallenges = Challenge.getDefaultChallenges();
+      if (loadedChallenges.length != defaultChallenges.length) {
+        // Migration needed - use new challenges but preserve completion status by ID
+        _challenges = defaultChallenges.map((newChallenge) {
+          final oldChallenge = loadedChallenges.firstWhere(
+            (old) => old.id == newChallenge.id,
+            orElse: () => newChallenge,
+          );
+          return Challenge(
+            id: newChallenge.id,
+            title: newChallenge.title,
+            category: newChallenge.category,
+            isCompleted: oldChallenge.isCompleted,
+          );
+        }).toList();
+        // Save migrated data immediately
+        _saveData();
+      } else {
+        // Check if any challenge has Russian text (migration needed)
+        final hasRussianText = loadedChallenges.any((c) => 
+          c.title.contains(RegExp(r'[а-яА-ЯёЁ]'))
+        );
+        
+        if (hasRussianText) {
+          // Migration needed - replace with English versions
+          _challenges = defaultChallenges.map((newChallenge) {
+            final oldChallenge = loadedChallenges.firstWhere(
+              (old) => old.id == newChallenge.id,
+              orElse: () => newChallenge,
+            );
+            return Challenge(
+              id: newChallenge.id,
+              title: newChallenge.title,
+              category: newChallenge.category,
+              isCompleted: oldChallenge.isCompleted,
+            );
+          }).toList();
+          // Save migrated data immediately
+          _saveData();
+        } else {
+          _challenges = loadedChallenges;
+        }
+      }
+    }
+    
+    // Load artifacts
+    final artifactsJson = prefs.getString('artifacts');
+    if (artifactsJson != null) {
+      final List<dynamic> decoded = json.decode(artifactsJson);
+      _artifacts = decoded.map((data) => Artifact.fromJson(data)).toList();
+    }
+    
+    // Load fortune wheel data
+    final fortuneDateStr = prefs.getString('last_fortune_spin');
+    if (fortuneDateStr != null) {
+      _lastFortuneSpinDate = DateTime.parse(fortuneDateStr);
+    }
+    
+    final fortuneRewardStr = prefs.getString('today_fortune_reward');
+    if (fortuneRewardStr != null && canSpinFortuneWheel == false) {
+      final data = json.decode(fortuneRewardStr);
+      final rewards = FortuneReward.getAllRewards();
+      _todayFortuneReward = rewards.firstWhere(
+        (r) => r.title == data['title'],
+        orElse: () => rewards[0],
+      );
+    }
+    
     _isInitialized = true;
     notifyListeners();
   }
@@ -82,6 +316,28 @@ class AppProvider extends ChangeNotifier {
     
     // Save favorites
     await prefs.setString('favorites', json.encode(_favoritePlaceIds.toList()));
+    
+    // Save challenges
+    final challengesData = _challenges.map((c) => c.toJson()).toList();
+    await prefs.setString('challenges', json.encode(challengesData));
+    
+    // Save artifacts
+    final artifactsData = _artifacts.map((a) => a.toJson()).toList();
+    await prefs.setString('artifacts', json.encode(artifactsData));
+    
+    // Save fortune wheel data
+    if (_lastFortuneSpinDate != null) {
+      await prefs.setString(
+          'last_fortune_spin', _lastFortuneSpinDate!.toIso8601String());
+    }
+    
+    if (_todayFortuneReward != null) {
+      await prefs.setString('today_fortune_reward', json.encode({
+        'title': _todayFortuneReward!.title,
+        'emoji': _todayFortuneReward!.emoji,
+        'description': _todayFortuneReward!.description,
+      }));
+    }
   }
 
   void toggleFavorite(String placeId) {

@@ -5,6 +5,7 @@ import '../models/place.dart';
 import '../providers/app_provider.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_styles.dart';
+import 'time_portal_screen.dart';
 
 class PlaceDetailScreen extends StatelessWidget {
   final Place place;
@@ -243,6 +244,52 @@ class PlaceDetailScreen extends StatelessWidget {
                           .map((warning) => _WarningItem(warning: warning)),
                     ],
                     const SizedBox(height: 32),
+                    // Time Portal button
+                    SizedBox(
+                      width: double.infinity,
+                      child: CupertinoButton(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        color: Colors.transparent,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                AppColors.bluePrimary,
+                                AppColors.accentTeal,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: AppColors.glowBlue,
+                                blurRadius: 15,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: const Center(
+                            child: Text(
+                              '⏳ Open Time Portal',
+                              style: TextStyle(
+                                color: AppColors.textPrimary,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => TimePortalScreen(place: place),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 16),
                     // Get Directions button
                     SizedBox(
                       width: double.infinity,
