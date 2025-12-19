@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/place.dart';
 import '../providers/app_provider.dart';
+import '../theme/app_colors.dart';
+import '../theme/app_styles.dart';
 
 class PlaceDetailScreen extends StatelessWidget {
   final Place place;
@@ -13,44 +16,108 @@ class PlaceDetailScreen extends StatelessWidget {
     final provider = Provider.of<AppProvider>(context);
     final isFavorite = provider.isFavorite(place.id);
 
-    return CupertinoPageScaffold(
-      backgroundColor: const Color(0xFF1C1C24),
-      navigationBar: CupertinoNavigationBar(
-        backgroundColor: const Color(0xFF232332),
-        border: null,
-        leading: CupertinoButton(
-          padding: EdgeInsets.zero,
-          child: const Icon(CupertinoIcons.back, color: CupertinoColors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        trailing: CupertinoButton(
-          padding: EdgeInsets.zero,
-          onPressed: () {
-            provider.toggleFavorite(place.id);
-          },
-          child: Icon(
-            isFavorite ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
-            color: CupertinoColors.white,
+    return Container(
+      decoration: AppStyles.backgroundGradient,
+      child: CupertinoPageScaffold(
+        backgroundColor: CupertinoColors.transparent,
+        navigationBar: CupertinoNavigationBar(
+          backgroundColor: AppColors.secondaryBg.withValues(alpha: 0.9),
+          border: Border(bottom: BorderSide(color: AppColors.goldSecondary.withValues(alpha: 0.3), width: 1)),
+          leading: CupertinoButton(
+            padding: EdgeInsets.zero,
+            child: Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [AppColors.goldPrimary, AppColors.goldSecondary],
+                ),
+                shape: BoxShape.circle,
+                boxShadow: const [
+                  BoxShadow(
+                    color: AppColors.glowGold,
+                    blurRadius: 8,
+                  ),
+                ],
+              ),
+              child: const Icon(CupertinoIcons.back, color: AppColors.textPrimary, size: 20),
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          trailing: CupertinoButton(
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              provider.toggleFavorite(place.id);
+            },
+            child: Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: isFavorite 
+                    ? [AppColors.accentPink, AppColors.goldSecondary]
+                    : [AppColors.secondaryBg, AppColors.primaryBg],
+                ),
+                shape: BoxShape.circle,
+                boxShadow: isFavorite ? const [
+                  BoxShadow(
+                    color: AppColors.glowGold,
+                    blurRadius: 8,
+                  ),
+                ] : null,
+              ),
+              child: Icon(
+                isFavorite ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+                color: AppColors.textPrimary,
+                size: 20,
+              ),
+            ),
           ),
         ),
-      ),
-      child: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Hero image (emoji)
-              Container(
-                width: double.infinity,
-                height: 200,
-                color: const Color(0xFF232332),
-                child: Center(
-                  child: Text(
-                    place.imageEmoji,
-                    style: const TextStyle(fontSize: 100),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Hero image (emoji)
+                Container(
+                  width: double.infinity,
+                  height: 240,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        AppColors.secondaryBg,
+                        AppColors.primaryBg,
+                      ],
+                    ),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: AppColors.glowGold,
+                        blurRadius: 20,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        boxShadow: const [
+                          BoxShadow(
+                            color: AppColors.glowGold,
+                            blurRadius: 30,
+                            spreadRadius: 10,
+                          ),
+                        ],
+                      ),
+                      child: Text(
+                        place.imageEmoji,
+                        style: const TextStyle(fontSize: 120),
+                      ),
+                    ),
                   ),
                 ),
-              ),
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
@@ -59,27 +126,33 @@ class PlaceDetailScreen extends StatelessWidget {
                     // Title
                     Text(
                       place.name,
-                      style: const TextStyle(
-                        color: CupertinoColors.white,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: AppStyles.titleLarge,
                     ),
                     const SizedBox(height: 8),
                     // Location
                     Row(
                       children: [
-                        const Icon(
-                          CupertinoIcons.location_solid,
-                          size: 16,
-                          color: Color(0xFF9E9E9E),
+                        Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [AppColors.bluePrimary, AppColors.accentTeal],
+                            ),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: const Icon(
+                            CupertinoIcons.location_solid,
+                            size: 16,
+                            color: AppColors.textPrimary,
+                          ),
                         ),
-                        const SizedBox(width: 4),
+                        const SizedBox(width: 8),
                         Text(
                           place.location,
                           style: const TextStyle(
-                            color: Color(0xFF9E9E9E),
-                            fontSize: 16,
+                            color: AppColors.goldSecondary,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
@@ -92,46 +165,42 @@ class PlaceDetailScreen extends StatelessWidget {
                       children: [
                         _InfoChip(
                           icon: CupertinoIcons.time,
-                          label: '${place.estimatedTimeMinutes} min',
+                          label: '⏱️ ${place.estimatedTimeMinutes} min',
                         ),
                         _InfoChip(
                           icon: CupertinoIcons.tag,
-                          label: place.category,
+                          label: '🏛️ ${place.category}',
                         ),
                         _InfoChip(
                           icon: CupertinoIcons.sun_max,
-                          label: place.bestTimeToVisit,
+                          label: '☀️ ${place.bestTimeToVisit}',
                         ),
                       ],
                     ),
                     const SizedBox(height: 24),
                     // Description
-                    const Text(
-                      'About',
-                      style: TextStyle(
-                        color: CupertinoColors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
                     Text(
-                      place.description,
-                      style: const TextStyle(
-                        color: Color(0xFF9E9E9E),
-                        fontSize: 16,
-                        height: 1.5,
+                      '📜 About',
+                      style: AppStyles.titleMedium,
+                    ),
+                    const SizedBox(height: 12),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: AppStyles.cardDecoration,
+                      child: Text(
+                        place.description,
+                        style: const TextStyle(
+                          color: AppColors.textPrimary,
+                          fontSize: 16,
+                          height: 1.6,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 24),
                     // Tips
-                    const Text(
-                      'Tips & Recommendations',
-                      style: TextStyle(
-                        color: CupertinoColors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Text(
+                      '💡 Tips & Recommendations',
+                      style: AppStyles.titleMedium,
                     ),
                     const SizedBox(height: 12),
                     ...place.tips.map((tip) => _TipItem(tip: tip)),
@@ -140,18 +209,31 @@ class PlaceDetailScreen extends StatelessWidget {
                     if (place.scamWarnings.isNotEmpty) ...[
                       Row(
                         children: [
-                          const Icon(
-                            CupertinoIcons.exclamationmark_triangle_fill,
-                            color: Color(0xFFFF6B6B),
-                            size: 20,
+                          Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [AppColors.accentPink, Color(0xFFFF6B6B)],
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: AppColors.accentPink,
+                                  blurRadius: 8,
+                                ),
+                              ],
+                            ),
+                            child: const Icon(
+                              CupertinoIcons.exclamationmark_triangle_fill,
+                              color: AppColors.textPrimary,
+                              size: 20,
+                            ),
                           ),
-                          const SizedBox(width: 8),
-                          const Text(
-                            'Scam Warnings',
-                            style: TextStyle(
-                              color: Color(0xFFFF6B6B),
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                          const SizedBox(width: 12),
+                          Text(
+                            '⚠️ Scam Warnings',
+                            style: AppStyles.titleMedium.copyWith(
+                              color: AppColors.accentPink,
                             ),
                           ),
                         ],
@@ -165,12 +247,20 @@ class PlaceDetailScreen extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: CupertinoButton(
-                        color: CupertinoColors.white,
-                        child: const Text(
-                          'Get Directions',
-                          style: TextStyle(
-                            color: Color(0xFF1C1C24),
-                            fontWeight: FontWeight.w600,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        color: Colors.transparent,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          decoration: AppStyles.buttonDecoration,
+                          child: const Center(
+                            child: Text(
+                              '🗺️ Get Directions',
+                              style: TextStyle(
+                                color: AppColors.primaryBg,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                         onPressed: () {
@@ -206,6 +296,7 @@ class PlaceDetailScreen extends StatelessWidget {
           ),
         ),
       ),
+    )
     );
   }
 }
@@ -219,22 +310,28 @@ class _InfoChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
-        color: const Color(0xFF232332),
-        borderRadius: BorderRadius.circular(8),
+        gradient: const LinearGradient(
+          colors: [AppColors.secondaryBg, AppColors.primaryBg],
+        ),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.goldSecondary.withValues(alpha: 0.3),
+          width: 1,
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 16, color: CupertinoColors.white),
           const SizedBox(width: 6),
           Flexible(
             child: Text(
               label,
               style: const TextStyle(
-                color: CupertinoColors.white,
-                fontSize: 14,
+                color: AppColors.textPrimary,
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
@@ -251,17 +348,31 @@ class _TipItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(14),
+      decoration: AppStyles.cardDecoration,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 4),
-            child: Icon(
-              CupertinoIcons.checkmark_circle_fill,
-              size: 20,
-              color: Color(0xFF4CAF50),
+          Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [AppColors.accentTeal, AppColors.bluePrimary],
+              ),
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: const [
+                BoxShadow(
+                  color: AppColors.accentTeal,
+                  blurRadius: 6,
+                ),
+              ],
+            ),
+            child: const Icon(
+              CupertinoIcons.lightbulb_fill,
+              size: 18,
+              color: AppColors.textPrimary,
             ),
           ),
           const SizedBox(width: 12),
@@ -269,9 +380,9 @@ class _TipItem extends StatelessWidget {
             child: Text(
               tip,
               style: const TextStyle(
-                color: Color(0xFF9E9E9E),
+                color: AppColors.textPrimary,
                 fontSize: 15,
-                height: 1.4,
+                height: 1.5,
               ),
             ),
           ),
@@ -288,17 +399,43 @@ class _WarningItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            AppColors.accentPink.withValues(alpha: 0.2),
+            AppColors.primaryBg,
+          ],
+        ),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.accentPink.withValues(alpha: 0.5),
+          width: 1,
+        ),
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 4),
-            child: Icon(
-              CupertinoIcons.exclamationmark_circle_fill,
-              size: 20,
-              color: Color(0xFFFF6B6B),
+          Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [AppColors.accentPink, Color(0xFFFF6B6B)],
+              ),
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: const [
+                BoxShadow(
+                  color: AppColors.accentPink,
+                  blurRadius: 6,
+                ),
+              ],
+            ),
+            child: const Icon(
+              CupertinoIcons.exclamationmark_triangle_fill,
+              size: 18,
+              color: AppColors.textPrimary,
             ),
           ),
           const SizedBox(width: 12),
@@ -306,9 +443,9 @@ class _WarningItem extends StatelessWidget {
             child: Text(
               warning,
               style: const TextStyle(
-                color: Color(0xFF9E9E9E),
+                color: AppColors.textPrimary,
                 fontSize: 15,
-                height: 1.4,
+                height: 1.5,
               ),
             ),
           ),

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import '../providers/app_provider.dart';
 import '../models/place.dart';
+import '../theme/app_colors.dart';
+import '../theme/app_styles.dart';
 import 'place_detail_screen.dart';
 
 class PlacesScreen extends StatefulWidget {
@@ -29,30 +31,38 @@ class _PlacesScreenState extends State<PlacesScreen> {
 
     final categories = ['All', ...provider.places.map((p) => p.category).toSet()];
 
-    return CupertinoPageScaffold(
-      backgroundColor: const Color(0xFF1C1C24),
-      navigationBar: const CupertinoNavigationBar(
-        backgroundColor: Color(0xFF232332),
-        border: null,
-        middle: Text(
-          'Places',
-          style: TextStyle(color: CupertinoColors.white),
+    return Container(
+      decoration: AppStyles.backgroundGradient,
+      child: CupertinoPageScaffold(
+        backgroundColor: CupertinoColors.transparent,
+        navigationBar: CupertinoNavigationBar(
+          backgroundColor: AppColors.secondaryBg.withValues(alpha: 0.9),
+          border: Border(bottom: BorderSide(color: AppColors.goldSecondary.withValues(alpha: 0.3), width: 1)),
+          middle: Text(
+            '📍 Discover Places',
+            style: AppStyles.titleSmall,
+          ),
         ),
-      ),
       child: SafeArea(
         child: Column(
           children: [
             // Search bar
             Padding(
               padding: const EdgeInsets.all(16),
-              child: CupertinoSearchTextField(
-                style: const TextStyle(color: CupertinoColors.white),
-                placeholderStyle: const TextStyle(color: Color(0xFF9E9E9E)),
-                onChanged: (value) {
-                  setState(() {
-                    _searchQuery = value;
-                  });
-                },
+              child: Container(
+                decoration: AppStyles.cardDecoration,
+                child: CupertinoSearchTextField(
+                  style: AppStyles.bodyLarge,
+                  placeholderStyle: AppStyles.bodySmall,
+                  itemColor: AppColors.goldPrimary,
+                  decoration: const BoxDecoration(),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  onChanged: (value) {
+                    setState(() {
+                      _searchQuery = value;
+                    });
+                  },
+                ),
               ),
             ),
             // Category filter
@@ -67,19 +77,23 @@ class _PlacesScreenState extends State<PlacesScreen> {
                   final isSelected = category == _selectedCategory;
                   return Padding(
                     padding: const EdgeInsets.only(right: 8),
-                    child: CupertinoButton(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                      color: isSelected ? CupertinoColors.white : const Color(0xFF232332),
-                      onPressed: () {
+                    child: GestureDetector(
+                      onTap: () {
                         setState(() {
                           _selectedCategory = category;
                         });
                       },
-                      child: Text(
-                        category,
-                        style: TextStyle(
-                          color: isSelected ? const Color(0xFF1C1C24) : CupertinoColors.white,
-                          fontSize: 14,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        decoration: isSelected
+                            ? AppStyles.buttonDecoration
+                            : AppStyles.cardDecoration,
+                        child: Text(
+                          category == 'All' ? '✨ All' : category,
+                          style: AppStyles.bodyMedium.copyWith(
+                            color: isSelected ? AppColors.primaryBg : AppColors.textPrimary,
+                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                          ),
                         ),
                       ),
                     ),
@@ -91,10 +105,25 @@ class _PlacesScreenState extends State<PlacesScreen> {
             // Places list
             Expanded(
               child: places.isEmpty
-                  ? const Center(
-                      child: Text(
-                        'No places found',
-                        style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 16),
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '🔍',
+                            style: TextStyle(fontSize: 60),
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            'No places found',
+                            style: AppStyles.titleSmall,
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            'Try different search or filter',
+                            style: AppStyles.bodySmall,
+                          ),
+                        ],
                       ),
                     )
                   : ListView.builder(
@@ -109,6 +138,7 @@ class _PlacesScreenState extends State<PlacesScreen> {
           ],
         ),
       ),
+    )
     );
   }
 }
@@ -133,10 +163,20 @@ class _PlaceCard extends StatelessWidget {
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 16),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: const Color(0xFF232332),
-          borderRadius: BorderRadius.circular(12),
+        padding: const EdgeInsets.all(18),
+        decoration: AppStyles.cardDecoration.copyWith(
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.glowGold.withValues(alpha: 0.1),
+              blurRadius: 10,
+              spreadRadius: 1,
+            ),
+            const BoxShadow(
+              color: AppColors.shadowDark,
+              blurRadius: 10,
+              offset: Offset(0, 4),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,20 +185,32 @@ class _PlaceCard extends StatelessWidget {
               children: [
                 // Emoji icon
                 Container(
-                  width: 60,
-                  height: 60,
+                  width: 64,
+                  height: 64,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF1C1C24),
-                    borderRadius: BorderRadius.circular(8),
+                    gradient: const LinearGradient(
+                      colors: [AppColors.tertiaryBg, AppColors.cardBg],
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: AppColors.goldSecondary.withValues(alpha: 0.3),
+                      width: 2,
+                    ),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: AppColors.glowBlue,
+                        blurRadius: 10,
+                      ),
+                    ],
                   ),
                   child: Center(
                     child: Text(
                       place.imageEmoji,
-                      style: const TextStyle(fontSize: 32),
+                      style: const TextStyle(fontSize: 36),
                     ),
                   ),
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: 16),
                 // Title and location
                 Expanded(
                   child: Column(
@@ -166,28 +218,21 @@ class _PlaceCard extends StatelessWidget {
                     children: [
                       Text(
                         place.name,
-                        style: const TextStyle(
-                          color: CupertinoColors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: AppStyles.titleSmall.copyWith(fontSize: 18),
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 6),
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             CupertinoIcons.location_solid,
                             size: 14,
-                            color: Color(0xFF9E9E9E),
+                            color: AppColors.goldSecondary,
                           ),
                           const SizedBox(width: 4),
                           Expanded(
                             child: Text(
                               place.location,
-                              style: const TextStyle(
-                                color: Color(0xFF9E9E9E),
-                                fontSize: 14,
-                              ),
+                              style: AppStyles.bodySmall,
                             ),
                           ),
                         ],
@@ -201,39 +246,56 @@ class _PlaceCard extends StatelessWidget {
                   onPressed: () {
                     provider.toggleFavorite(place.id);
                   },
-                  child: Icon(
-                    isFavorite
-                        ? CupertinoIcons.heart_fill
-                        : CupertinoIcons.heart,
-                    color: isFavorite ? CupertinoColors.white : const Color(0xFF9E9E9E),
-                    size: 24,
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: isFavorite
+                          ? const LinearGradient(
+                              colors: [AppColors.accentPink, AppColors.goldSecondary],
+                            )
+                          : null,
+                      color: isFavorite ? null : AppColors.tertiaryBg,
+                      boxShadow: isFavorite
+                          ? [
+                              const BoxShadow(
+                                color: AppColors.accentPink,
+                                blurRadius: 15,
+                              ),
+                            ]
+                          : null,
+                    ),
+                    child: Icon(
+                      isFavorite
+                          ? CupertinoIcons.heart_fill
+                          : CupertinoIcons.heart,
+                      color: isFavorite ? AppColors.textPrimary : AppColors.textTertiary,
+                      size: 20,
+                    ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             // Description
             Text(
               place.description,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Color(0xFF9E9E9E),
-                fontSize: 14,
-              ),
+              style: AppStyles.bodyMedium,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             // Info row
             Row(
               children: [
                 _InfoChip(
                   icon: CupertinoIcons.time,
-                  label: '${place.estimatedTimeMinutes} min',
+                  label: '⏱️ ${place.estimatedTimeMinutes} min',
                 ),
                 const SizedBox(width: 8),
                 _InfoChip(
                   icon: CupertinoIcons.tag,
-                  label: place.category,
+                  label: '🏛️ ${place.category}',
                 ),
               ],
             ),
@@ -253,21 +315,24 @@ class _InfoChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: const Color(0xFF1C1C24),
-        borderRadius: BorderRadius.circular(6),
+        gradient: const LinearGradient(
+          colors: [AppColors.cardBg, AppColors.tertiaryBg],
+        ),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: AppColors.goldSecondary.withValues(alpha: 0.3),
+          width: 1,
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 14, color: CupertinoColors.white),
-          const SizedBox(width: 4),
           Text(
             label,
-            style: const TextStyle(
-              color: CupertinoColors.white,
-              fontSize: 12,
+            style: AppStyles.bodySmall.copyWith(
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],

@@ -5,6 +5,7 @@ import '../screens/tours_screen.dart';
 import '../screens/map_screen.dart';
 import '../screens/profile_screen.dart';
 import '../screens/checklist_screen.dart';
+import '../theme/app_colors.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -37,37 +38,37 @@ class _MainScreenState extends State<MainScreen> {
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.home),
         title: "Home",
-        activeColorPrimary: CupertinoColors.white,
-        inactiveColorPrimary: const Color(0xFF9E9E9E),
-        activeColorSecondary: const Color(0xFF1C1C24),
+        activeColorPrimary: AppColors.goldPrimary,
+        inactiveColorPrimary: AppColors.textTertiary,
+        activeColorSecondary: AppColors.goldPrimary,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.location_solid),
         title: "Places",
-        activeColorPrimary: CupertinoColors.white,
-        inactiveColorPrimary: const Color(0xFF9E9E9E),
-        activeColorSecondary: const Color(0xFF1C1C24),
+        activeColorPrimary: AppColors.goldPrimary,
+        inactiveColorPrimary: AppColors.textTertiary,
+        activeColorSecondary: AppColors.goldPrimary,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.checkmark_circle),
         title: "Checklist",
-        activeColorPrimary: CupertinoColors.white,
-        inactiveColorPrimary: const Color(0xFF9E9E9E),
-        activeColorSecondary: const Color(0xFF1C1C24),
+        activeColorPrimary: AppColors.goldPrimary,
+        inactiveColorPrimary: AppColors.textTertiary,
+        activeColorSecondary: AppColors.goldPrimary,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.map),
         title: "Map",
-        activeColorPrimary: CupertinoColors.white,
-        inactiveColorPrimary: const Color(0xFF9E9E9E),
-        activeColorSecondary: const Color(0xFF1C1C24),
+        activeColorPrimary: AppColors.goldPrimary,
+        inactiveColorPrimary: AppColors.textTertiary,
+        activeColorSecondary: AppColors.goldPrimary,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.person),
         title: "Profile",
-        activeColorPrimary: CupertinoColors.white,
-        inactiveColorPrimary: const Color(0xFF9E9E9E),
-        activeColorSecondary: const Color(0xFF1C1C24),
+        activeColorPrimary: AppColors.goldPrimary,
+        inactiveColorPrimary: AppColors.textTertiary,
+        activeColorSecondary: AppColors.goldPrimary,
       ),
     ];
   }
@@ -79,7 +80,7 @@ class _MainScreenState extends State<MainScreen> {
       controller: _controller,
       screens: _buildScreens(),
       items: _navBarsItems(),
-      backgroundColor: const Color(0xFF232332),
+      backgroundColor: AppColors.secondaryBg,
       handleAndroidBackButtonPress: true,
       resizeToAvoidBottomInset: true,
       stateManagement: true,
@@ -87,6 +88,9 @@ class _MainScreenState extends State<MainScreen> {
       popBehaviorOnSelectedNavBarItemPress: PopBehavior.all,
       padding: const EdgeInsets.only(top: 8),
       isVisible: true,
+      decoration: NavBarDecoration(
+        border: Border(top: BorderSide(color: AppColors.goldSecondary.withValues(alpha: 0.3), width: 1)),
+      ),
       animationSettings: const NavBarAnimationSettings(
         navBarItemAnimation: ItemAnimationSettings(
           duration: Duration(milliseconds: 400),
