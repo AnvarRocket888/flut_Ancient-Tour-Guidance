@@ -290,15 +290,15 @@ class ProfileScreen extends StatelessWidget {
                 },
               ),
               _MenuItem(
-                icon: CupertinoIcons.globe,
-                title: '🌐 Open Google',
-                subtitle: 'Browse the web',
+                icon: CupertinoIcons.doc_text,
+                title: '📄 Privacy Policy',
+                subtitle: 'Read our privacy policy',
                 onTap: () {
                   Navigator.of(context).push(
                     CupertinoPageRoute(
                       builder: (context) => const WebViewScreen(
-                        url: 'https://www.google.com',
-                        title: '🌐 Google',
+                        url: 'https://ancienttourguidance.com/privacy-policy.html',
+                        title: '📄 Privacy Policy',
                       ),
                     ),
                   );
