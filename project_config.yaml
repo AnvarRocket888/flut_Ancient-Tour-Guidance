@@ -6,7 +6,7 @@ app_name: "Ancient Tour Guidance"
 
 # Bundle ID приложения (уникальный идентификатор в App Store)
 # Формат: com.company.appname
-bundle_id: "com.namesurname.ancienttourguidance"
+bundle_id: "com.wiriburey.ancienttourguidance"
 
 # Путь к иконке приложения (1024x1024 PNG файл)
 # Можно использовать абсолютный или относительный путь
