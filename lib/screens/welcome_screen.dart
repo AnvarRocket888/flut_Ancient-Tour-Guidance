@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import '../providers/app_provider.dart';
+import '../theme/app_colors.dart';
+import '../theme/app_styles.dart';
 import 'scam_warnings_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -11,16 +13,18 @@ class WelcomeScreen extends StatelessWidget {
     final provider = Provider.of<AppProvider>(context);
     final completionPercentage = provider.completionPercentage;
 
-    return CupertinoPageScaffold(
-      backgroundColor: const Color(0xFF1C1C24),
-      navigationBar: const CupertinoNavigationBar(
-        backgroundColor: Color(0xFF232332),
-        border: null,
-        middle: Text(
-          'Ancient Tour Guidance',
-          style: TextStyle(color: CupertinoColors.white),
+    return Container(
+      decoration: AppStyles.backgroundGradient,
+      child: CupertinoPageScaffold(
+        backgroundColor: CupertinoColors.transparent,
+        navigationBar: CupertinoNavigationBar(
+          backgroundColor: AppColors.secondaryBg.withOpacity(0.9),
+          border: Border(bottom: BorderSide(color: AppColors.goldSecondary.withOpacity(0.3), width: 1)),
+          middle: Text(
+            '✨ Ancient Tour Guidance ✨',
+            style: AppStyles.titleSmall,
+          ),
         ),
-      ),
       child: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -31,63 +35,105 @@ class WelcomeScreen extends StatelessWidget {
                 // Hero section
                 Container(
                   padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF232332),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
+                  decoration: AppStyles.cardDecoration,
                   child: Column(
                     children: [
-                      const Icon(
-                        CupertinoIcons.location_solid,
-                        size: 60,
-                        color: CupertinoColors.white,
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Explore Egypt',
-                        style: TextStyle(
-                          color: CupertinoColors.white,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: const LinearGradient(
+                            colors: [AppColors.bluePrimary, AppColors.blueSecondary],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: AppColors.glowBlue,
+                              blurRadius: 25,
+                              spreadRadius: 5,
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          CupertinoIcons.location_solid,
+                          size: 60,
+                          color: AppColors.textPrimary,
                         ),
                       ),
-                      const SizedBox(height: 8),
-                      const Text(
-                        'Your personal guide to ancient wonders',
+                      const SizedBox(height: 16),
+                      Text(
+                        '🏛️ Explore Egypt 🌟',
+                        style: AppStyles.titleLarge,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Color(0xFF9E9E9E),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        '✨ Your personal guide to ancient wonders ✨',
+                        textAlign: TextAlign.center,
+                        style: AppStyles.bodyMedium.copyWith(
                           fontSize: 16,
+                          fontStyle: FontStyle.italic,
                         ),
                       ),
                       const SizedBox(height: 20),
                       // Stats
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _StatItem(
-                            label: 'Places',
-                            value: '${provider.places.length}',
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [AppColors.cardBg, AppColors.tertiaryBg],
                           ),
-                          Container(
-                            width: 1,
-                            height: 40,
-                            color: const Color(0xFF1C1C24),
-                          ),
-                          _StatItem(
-                            label: 'Visited',
-                            value: '${provider.completedChecklistCount}',
-                          ),
-                          Container(
-                            width: 1,
-                            height: 40,
-                            color: const Color(0xFF1C1C24),
-                          ),
-                          _StatItem(
-                            label: 'Favorites',
-                            value: '${provider.favoritePlaceIds.length}',
-                          ),
-                        ],
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColors.goldPrimary.withOpacity(0.3), width: 1),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _StatItem(
+                              label: '📍 Places',
+                              value: '${provider.places.length}',
+                            ),
+                            Container(
+                              width: 2,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [AppColors.goldPrimary, AppColors.bluePrimary],
+                                ),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: AppColors.glowGold,
+                                    blurRadius: 10,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            _StatItem(
+                              label: '✅ Visited',
+                              value: '${provider.completedChecklistCount}',
+                            ),
+                            Container(
+                              width: 2,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [AppColors.goldPrimary, AppColors.bluePrimary],
+                                ),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: AppColors.glowGold,
+                                    blurRadius: 10,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            _StatItem(
+                              label: '⭐ Favorites',
+                              value: '${provider.favoritePlaceIds.length}',
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -96,51 +142,67 @@ class WelcomeScreen extends StatelessWidget {
                 // Progress
                 if (completionPercentage > 0) ...[
                   Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF232332),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+                    padding: const EdgeInsets.all(20),
+                    decoration: AppStyles.cardDecoration,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Your Progress',
-                          style: TextStyle(
-                            color: CupertinoColors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        Row(
+                          children: [
+                            const Icon(
+                              CupertinoIcons.chart_bar_alt_fill,
+                              color: AppColors.goldPrimary,
+                              size: 24,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              '📊 Your Progress',
+                              style: AppStyles.titleMedium,
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 16),
                         Stack(
                           children: [
                             Container(
                               width: double.infinity,
-                              height: 8,
+                              height: 12,
                               decoration: BoxDecoration(
-                                color: const Color(0xFF1C1C24),
-                                borderRadius: BorderRadius.circular(4),
+                                color: AppColors.primaryBg,
+                                borderRadius: BorderRadius.circular(6),
+                                border: Border.all(
+                                  color: AppColors.goldSecondary.withOpacity(0.3),
+                                  width: 1,
+                                ),
                               ),
                             ),
                             FractionallySizedBox(
                               widthFactor: completionPercentage / 100,
                               child: Container(
-                                height: 8,
+                                height: 12,
                                 decoration: BoxDecoration(
-                                  color: CupertinoColors.white,
-                                  borderRadius: BorderRadius.circular(4),
+                                  gradient: const LinearGradient(
+                                    colors: [AppColors.goldPrimary, AppColors.goldSecondary, AppColors.goldDark],
+                                  ),
+                                  borderRadius: BorderRadius.circular(6),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: AppColors.glowGold,
+                                      blurRadius: 15,
+                                      spreadRadius: 2,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 12),
                         Text(
-                          '${completionPercentage.toInt()}% Complete',
-                          style: const TextStyle(
-                            color: Color(0xFF9E9E9E),
-                            fontSize: 12,
+                          '✨ ${completionPercentage.toInt()}% Complete - Keep Going! 🎯',
+                          style: AppStyles.bodyMedium.copyWith(
+                            color: AppColors.textGold,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ],
@@ -149,20 +211,16 @@ class WelcomeScreen extends StatelessWidget {
                   const SizedBox(height: 24),
                 ],
                 // Quick Actions
-                const Text(
-                  'Quick Actions',
-                  style: TextStyle(
-                    color: CupertinoColors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Text(
+                  '⚡ Quick Actions',
+                  style: AppStyles.titleMedium,
                 ),
                 const SizedBox(height: 12),
                 _ActionCard(
                   icon: CupertinoIcons.shield_lefthalf_fill,
-                  title: 'Safety Tips',
+                  title: '🛡️ Safety Tips',
                   subtitle: 'Stay safe during your trip',
-                  color: const Color(0xFFFF5252),
+                  color: AppColors.accentPink,
                   onTap: () {
                     Navigator.push(
                       context,
@@ -175,23 +233,24 @@ class WelcomeScreen extends StatelessWidget {
                 const SizedBox(height: 12),
                 _ActionCard(
                   icon: CupertinoIcons.lightbulb_fill,
-                  title: 'Travel Tips',
+                  title: '💡 Travel Tips',
                   subtitle: 'Essential advice for tourists',
                   color: const Color(0xFFFFC107),
                   onTap: () {
                     showCupertinoDialog(
                       context: context,
                       builder: (context) => CupertinoAlertDialog(
-                        title: const Text('Travel Tips'),
-                        content: const Text(
+                        title: Text('💡 Travel Tips', style: AppStyles.titleSmall),
+                        content: Text(
                           '✈️ Essential Tips:\n\n'
-                          '• Dress modestly, especially at religious sites\n'
-                          '• Bring sunscreen and stay hydrated\n'
-                          '• Book guided tours for major sites\n'
-                          '• Learn basic Arabic phrases\n'
-                          '• Carry small bills for tipping\n'
-                          '• Avoid tap water - drink bottled water\n'
-                          '• Visit early morning to avoid crowds',
+                          '👔 Dress modestly at religious sites\n'
+                          '☀️ Bring sunscreen & stay hydrated\n'
+                          '🎫 Book guided tours for major sites\n'
+                          '🗣️ Learn basic Arabic phrases\n'
+                          '💵 Carry small bills for tipping\n'
+                          '💧 Drink bottled water only\n'
+                          '⏰ Visit early morning to avoid crowds',
+                          style: AppStyles.bodyMedium,
                         ),
                         actions: [
                           CupertinoDialogAction(
@@ -206,23 +265,25 @@ class WelcomeScreen extends StatelessWidget {
                 const SizedBox(height: 12),
                 _ActionCard(
                   icon: CupertinoIcons.money_dollar_circle_fill,
-                  title: 'Currency Guide',
+                  title: '💰 Currency Guide',
                   subtitle: 'Exchange rates & payment tips',
-                  color: const Color(0xFFFFA500),
+                  color: AppColors.goldSecondary,
                   onTap: () {
                     showCupertinoDialog(
                       context: context,
                       builder: (context) => CupertinoAlertDialog(
-                        title: const Text('Currency Guide'),
-                        content: const Text(
-                          '💰 Egyptian Pound (EGP)\n\n'
+                        title: Text('💰 Currency Guide', style: AppStyles.titleSmall),
+                        content: Text(
+                          '💵 Egyptian Pound (EGP)\n\n'
+                          '💱 Exchange Rates:\n'
                           '• 1 USD ≈ 30-31 EGP\n'
                           '• 1 EUR ≈ 33-34 EGP\n\n'
-                          'Tips:\n'
-                          '• Exchange at official banks\n'
-                          '• Keep small bills for tipping\n'
-                          '• Credit cards accepted at major hotels\n'
-                          '• ATMs widely available in cities',
+                          '✨ Tips:\n'
+                          '🏦 Exchange at official banks\n'
+                          '💵 Keep small bills for tipping\n'
+                          '💳 Credit cards at major hotels\n'
+                          '🏧 ATMs widely available in cities',
+                          style: AppStyles.bodyMedium,
                         ),
                         actions: [
                           CupertinoDialogAction(
@@ -238,38 +299,47 @@ class WelcomeScreen extends StatelessWidget {
                 // Did you know section
                 Container(
                   padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF232332),
-                    borderRadius: BorderRadius.circular(12),
+                  decoration: AppStyles.cardDecoration.copyWith(
+                    border: Border.all(color: AppColors.bluePrimary.withOpacity(0.5), width: 2),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Row(
                         children: [
-                          Icon(
-                            CupertinoIcons.star_fill,
-                            color: CupertinoColors.white,
-                            size: 20,
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            'Did You Know?',
-                            style: TextStyle(
-                              color: CupertinoColors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: const LinearGradient(
+                                colors: [AppColors.goldPrimary, AppColors.goldSecondary],
+                              ),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: AppColors.glowGold,
+                                  blurRadius: 15,
+                                ),
+                              ],
                             ),
+                            child: const Icon(
+                              CupertinoIcons.star_fill,
+                              color: AppColors.primaryBg,
+                              size: 20,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            '💡 Did You Know?',
+                            style: AppStyles.titleMedium,
                           ),
                         ],
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 16),
                       Text(
-                        'The Great Pyramid of Giza was the tallest man-made structure in the world for over 3,800 years! It was built around 2560 BC and remained the tallest until the Lincoln Cathedral was completed in 1311 AD.',
-                        style: TextStyle(
-                          color: Color(0xFF9E9E9E),
+                        '🏛️ The Great Pyramid of Giza was the tallest man-made structure in the world for over 3,800 years! ⏳ It was built around 2560 BC and remained the tallest until the Lincoln Cathedral was completed in 1311 AD. ✨',
+                        style: AppStyles.bodyMedium.copyWith(
                           fontSize: 14,
-                          height: 1.5,
+                          height: 1.6,
                         ),
                       ),
                     ],
@@ -280,6 +350,7 @@ class WelcomeScreen extends StatelessWidget {
           ),
         ),
       ),
+    )
     );
   }
 }
@@ -304,54 +375,88 @@ class _ActionCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: const Color(0xFF232332),
-          borderRadius: BorderRadius.circular(12),
+        padding: const EdgeInsets.all(18),
+        decoration: AppStyles.cardDecoration.copyWith(
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.3),
+              blurRadius: 15,
+              spreadRadius: 1,
+            ),
+            const BoxShadow(
+              color: AppColors.shadowDark,
+              blurRadius: 10,
+              offset: Offset(0, 4),
+            ),
+          ],
         ),
         child: Row(
           children: [
             Container(
-              width: 48,
-              height: 48,
+              width: 56,
+              height: 56,
               decoration: BoxDecoration(
-                color: color.withAlpha(51),
-                borderRadius: BorderRadius.circular(8),
+                gradient: LinearGradient(
+                  colors: [color.withOpacity(0.3), color.withOpacity(0.1)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: color.withOpacity(0.5), width: 2),
+                boxShadow: [
+                  BoxShadow(
+                    color: color.withOpacity(0.4),
+                    blurRadius: 10,
+                  ),
+                ],
               ),
               child: Icon(
                 icon,
                 color: color,
-                size: 24,
+                size: 28,
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
-                      color: CupertinoColors.white,
-                      fontSize: 16,
+                    style: AppStyles.bodyLarge.copyWith(
                       fontWeight: FontWeight.bold,
+                      fontSize: 17,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: const TextStyle(
-                      color: Color(0xFF9E9E9E),
-                      fontSize: 12,
+                    style: AppStyles.bodySmall.copyWith(
+                      fontSize: 13,
                     ),
                   ),
                 ],
               ),
             ),
-            const Icon(
-              CupertinoIcons.chevron_right,
-              color: Color(0xFF9E9E9E),
-              size: 20,
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: const LinearGradient(
+                  colors: [AppColors.goldPrimary, AppColors.goldSecondary],
+                ),
+                boxShadow: const [
+                  BoxShadow(
+                    color: AppColors.glowGold,
+                    blurRadius: 10,
+                  ),
+                ],
+              ),
+              child: const Icon(
+                CupertinoIcons.chevron_right,
+                color: AppColors.primaryBg,
+                size: 18,
+              ),
             ),
           ],
         ),
@@ -372,18 +477,26 @@ class _StatItem extends StatelessWidget {
       children: [
         Text(
           value,
-          style: const TextStyle(
-            color: CupertinoColors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+          style: AppStyles.titleMedium.copyWith(
+            fontSize: 26,
+            shadows: [
+              const Shadow(
+                color: AppColors.glowGold,
+                blurRadius: 20,
+              ),
+              const Shadow(
+                color: AppColors.glowBlue,
+                blurRadius: 15,
+              ),
+            ],
           ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 6),
         Text(
           label,
-          style: const TextStyle(
-            color: Color(0xFF9E9E9E),
-            fontSize: 12,
+          style: AppStyles.bodySmall.copyWith(
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ],

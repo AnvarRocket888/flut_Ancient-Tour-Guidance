@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import '../screens/main_screen.dart';
 import '../providers/app_provider.dart';
+import '../theme/app_colors.dart';
 
 class ClearApp extends StatelessWidget {
   const ClearApp({super.key});
@@ -18,11 +19,11 @@ class ClearApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: CupertinoThemeData(
           brightness: Brightness.dark,
-          primaryColor: CupertinoColors.white,
-          scaffoldBackgroundColor: Color(0xFF1C1C24),
-          barBackgroundColor: Color(0xFF232332),
+          primaryColor: AppColors.goldPrimary,
+          scaffoldBackgroundColor: AppColors.primaryBg,
+          barBackgroundColor: AppColors.secondaryBg,
           textTheme: CupertinoTextThemeData(
-            primaryColor: CupertinoColors.white,
+            primaryColor: AppColors.textPrimary,
           ),
         ),
         home: MainScreen(),
