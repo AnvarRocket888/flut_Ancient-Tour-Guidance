@@ -80,31 +80,11 @@ class _MainScreenState extends State<MainScreen> {
       controller: _controller,
       screens: _buildScreens(),
       items: _navBarsItems(),
+      navBarStyle: NavBarStyle.style9,
       backgroundColor: AppColors.secondaryBg,
-      handleAndroidBackButtonPress: true,
-      resizeToAvoidBottomInset: true,
-      stateManagement: true,
-      hideNavigationBarWhenKeyboardAppears: true,
-      popBehaviorOnSelectedNavBarItemPress: PopBehavior.all,
-      padding: const EdgeInsets.only(top: 8),
-      isVisible: true,
       decoration: NavBarDecoration(
         border: Border(top: BorderSide(color: AppColors.goldSecondary.withValues(alpha: 0.3), width: 1)),
       ),
-      animationSettings: const NavBarAnimationSettings(
-        navBarItemAnimation: ItemAnimationSettings(
-          duration: Duration(milliseconds: 400),
-          curve: Curves.ease,
-        ),
-        screenTransitionAnimation: ScreenTransitionAnimationSettings(
-          animateTabTransition: true,
-          duration: Duration(milliseconds: 200),
-          screenTransitionAnimationType: ScreenTransitionAnimationType.fadeIn,
-        ),
-      ),
-      confineToSafeArea: true,
-      navBarHeight: 60,
-      navBarStyle: NavBarStyle.style1,
     );
   }
 }
