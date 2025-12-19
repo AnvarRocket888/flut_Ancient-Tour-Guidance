@@ -9,6 +9,7 @@ import 'checklist_screen.dart';
 import 'challenges_screen.dart';
 import 'fortune_wheel_screen.dart';
 import 'artifact_collection_screen.dart';
+import 'web_view_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -284,6 +285,21 @@ class ProfileScreen extends StatelessWidget {
                   Navigator.of(context).push(
                     CupertinoPageRoute(
                       builder: (context) => const ScamWarningsScreen(),
+                    ),
+                  );
+                },
+              ),
+              _MenuItem(
+                icon: CupertinoIcons.globe,
+                title: '🌐 Open Google',
+                subtitle: 'Browse the web',
+                onTap: () {
+                  Navigator.of(context).push(
+                    CupertinoPageRoute(
+                      builder: (context) => const WebViewScreen(
+                        url: 'https://www.google.com',
+                        title: '🌐 Google',
+                      ),
                     ),
                   );
                 },
