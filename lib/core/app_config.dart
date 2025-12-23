@@ -5,22 +5,22 @@ import 'package:flutter/cupertino.dart';
 class AppConfig {
 //========================= App Serrings =========================//
 
-  static const String appsFlyerDevKey = 'ZxzZYPbN93maktCtrRZtw8';
-  static const String appsFlyerAppId = '6755145892'; // Для iOS'
-  static const String bundleId = 'com.cash-nemotion.nemotion-cash'; // Для iOS'
+  static const String appsFlyerDevKey = 'qQ8AmPB6AFGFtt5ZRmW9t4';
+  static const String appsFlyerAppId = '6756786827'; // Для iOS'
+  static const String bundleId = 'com.wiriburey.ancienttourguidance'; // Для iOS'
   static const String locale = 'en'; // Для iOS'
   static const String os = 'iOS'; // Для iOS'
-  static const String endpoint = 'https://cashnemotion.com'; // Для iOS'
+  static const String endpoint = 'https://ancienttourguidance.com'; // Для iOS'
 
   static const String logoPath = 'assets/images/Logo.png';
-  static const String pushRequestLogoPath = 'assets/images/Logo2.png';
+  static const String pushRequestLogoPath = 'assets/images/Logo.png';
 
   static const String pushRequestBackgroundPath =
-      'assets/images/SplashBackground.png';
+      'assets/images/LoadingScreen.png';
   static const String splashBackgroundPath =
-      'assets/images/SplashBackground.png';
+      'assets/images/LoadingScreen.png';
   static const String errorBackgroundPath =
-      'assets/images/SplashBackground.png';
+      'assets/images/LoadingScreen.png';
 
 //========================= UI Settings =========================//
 
