@@ -9,7 +9,7 @@ import 'checklist_screen.dart';
 import 'challenges_screen.dart';
 import 'fortune_wheel_screen.dart';
 import 'artifact_collection_screen.dart';
-import 'web_view_screen.dart';
+import '../core/screens/webview_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -28,310 +28,315 @@ class ProfileScreen extends StatelessWidget {
         backgroundColor: CupertinoColors.transparent,
         navigationBar: CupertinoNavigationBar(
           backgroundColor: AppColors.secondaryBg.withValues(alpha: 0.9),
-          border: Border(bottom: BorderSide(color: AppColors.goldSecondary.withValues(alpha: 0.3), width: 1)),
-          middle: Text(
-            '👤 My Profile',
-            style: AppStyles.titleSmall,
+          border: Border(
+            bottom: BorderSide(
+              color: AppColors.goldSecondary.withValues(alpha: 0.3),
+              width: 1,
+            ),
           ),
+          middle: Text('👤 My Profile', style: AppStyles.titleSmall),
         ),
-      child: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 24),
-              // Avatar
-              Container(
-                width: 110,
-                height: 110,
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [AppColors.goldPrimary, AppColors.goldSecondary],
-                  ),
-                  shape: BoxShape.circle,
-                  boxShadow: const [
-                    BoxShadow(
-                      color: AppColors.glowGold,
-                      blurRadius: 20,
-                      spreadRadius: 2,
-                    ),
-                  ],
-                ),
-                child: Container(
-                  margin: const EdgeInsets.all(4),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 24),
+                // Avatar
+                Container(
+                  width: 110,
+                  height: 110,
                   decoration: BoxDecoration(
-                    color: AppColors.secondaryBg,
+                    gradient: const LinearGradient(
+                      colors: [AppColors.goldPrimary, AppColors.goldSecondary],
+                    ),
                     shape: BoxShape.circle,
+                    boxShadow: const [
+                      BoxShadow(
+                        color: AppColors.glowGold,
+                        blurRadius: 20,
+                        spreadRadius: 2,
+                      ),
+                    ],
                   ),
-                  child: const Center(
-                    child: Text(
-                      '🧳',
-                      style: TextStyle(fontSize: 50),
+                  child: Container(
+                    margin: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: AppColors.secondaryBg,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Center(
+                      child: Text('🧳', style: TextStyle(fontSize: 50)),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                '✨ Egypt Explorer ✨',
-                style: AppStyles.titleMedium,
-              ),
-              const SizedBox(height: 8),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [AppColors.accentPink, AppColors.goldSecondary],
+                const SizedBox(height: 16),
+                Text('✨ Egypt Explorer ✨', style: AppStyles.titleMedium),
+                const SizedBox(height: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 6,
                   ),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: AppColors.glowGold,
-                      blurRadius: 8,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [AppColors.accentPink, AppColors.goldSecondary],
                     ),
-                  ],
-                ),
-                child: const Text(
-                  '🎭 Adventure Traveler',
-                  style: TextStyle(
-                    color: AppColors.textPrimary,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: const [
+                      BoxShadow(color: AppColors.glowGold, blurRadius: 8),
+                    ],
+                  ),
+                  child: const Text(
+                    '🎭 Adventure Traveler',
+                    style: TextStyle(
+                      color: AppColors.textPrimary,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 32),
-              // Stats cards
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: _StatCard(
-                        icon: CupertinoIcons.checkmark_circle_fill,
-                        value: '$completedCount',
-                        label: 'Visited',
-                        gradient: const LinearGradient(
-                          colors: [AppColors.goldPrimary, AppColors.goldSecondary],
+                const SizedBox(height: 32),
+                // Stats cards
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: _StatCard(
+                          icon: CupertinoIcons.checkmark_circle_fill,
+                          value: '$completedCount',
+                          label: 'Visited',
+                          gradient: const LinearGradient(
+                            colors: [
+                              AppColors.goldPrimary,
+                              AppColors.goldSecondary,
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _StatCard(
-                        icon: CupertinoIcons.heart_fill,
-                        value: '$favoritesCount',
-                        label: 'Favorites',
-                        gradient: const LinearGradient(
-                          colors: [AppColors.accentPink, AppColors.goldSecondary],
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: _StatCard(
+                          icon: CupertinoIcons.heart_fill,
+                          value: '$favoritesCount',
+                          label: 'Favorites',
+                          gradient: const LinearGradient(
+                            colors: [
+                              AppColors.accentPink,
+                              AppColors.goldSecondary,
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _StatCard(
-                        icon: CupertinoIcons.location_fill,
-                        value: '${provider.places.length}',
-                        label: 'Places',
-                        gradient: const LinearGradient(
-                          colors: [AppColors.bluePrimary, AppColors.accentTeal],
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: _StatCard(
+                          icon: CupertinoIcons.location_fill,
+                          value: '${provider.places.length}',
+                          label: 'Places',
+                          gradient: const LinearGradient(
+                            colors: [
+                              AppColors.bluePrimary,
+                              AppColors.accentTeal,
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 24),
-              // Progress section
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                padding: const EdgeInsets.all(20),
-                decoration: AppStyles.cardDecoration,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '🎯 Trip Progress',
-                      style: AppStyles.titleSmall,
-                    ),
-                    const SizedBox(height: 16),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Container(
-                        height: 16,
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryBg,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Stack(
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    AppColors.secondaryBg,
-                                    AppColors.primaryBg,
-                                  ],
-                                ),
-                              ),
-                            ),
-                            FractionallySizedBox(
-                              widthFactor: completionPercentage,
-                              child: Container(
+                const SizedBox(height: 24),
+                // Progress section
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.all(20),
+                  decoration: AppStyles.cardDecoration,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('🎯 Trip Progress', style: AppStyles.titleSmall),
+                      const SizedBox(height: 16),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Container(
+                          height: 16,
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryBg,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Stack(
+                            children: [
+                              Container(
+                                width: double.infinity,
                                 decoration: BoxDecoration(
-                                  gradient: const LinearGradient(
-                                    colors: [AppColors.goldPrimary, AppColors.goldSecondary],
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      AppColors.secondaryBg,
+                                      AppColors.primaryBg,
+                                    ],
                                   ),
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: AppColors.glowGold,
-                                      blurRadius: 10,
-                                    ),
-                                  ],
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '✨ ${(completionPercentage * 100).toStringAsFixed(0)}% Complete',
-                          style: const TextStyle(
-                            color: AppColors.goldPrimary,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            shadows: [
-                              Shadow(
-                                color: AppColors.glowGold,
-                                blurRadius: 6,
+                              FractionallySizedBox(
+                                widthFactor: completionPercentage,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: const LinearGradient(
+                                      colors: [
+                                        AppColors.goldPrimary,
+                                        AppColors.goldSecondary,
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: AppColors.glowGold,
+                                        blurRadius: 10,
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ],
                           ),
                         ),
-                        Text(
-                          '$completedCount / $totalCount 📍',
-                          style: const TextStyle(
-                            color: AppColors.textPrimary,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '✨ ${(completionPercentage * 100).toStringAsFixed(0)}% Complete',
+                            style: const TextStyle(
+                              color: AppColors.goldPrimary,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              shadows: [
+                                Shadow(
+                                  color: AppColors.glowGold,
+                                  blurRadius: 6,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          Text(
+                            '$completedCount / $totalCount 📍',
+                            style: const TextStyle(
+                              color: AppColors.textPrimary,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 24),
-              // Menu items
-              _MenuItem(
-                icon: CupertinoIcons.sparkles,
-                title: '🔮 Fortune Wheel',
-                subtitle: 'Daily mystical quest from ancient gods',
-                onTap: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(
-                      builder: (context) => const FortuneWheelScreen(),
-                    ),
-                  );
-                },
-              ),
-              _MenuItem(
-                icon: CupertinoIcons.cube_box_fill,
-                title: '🏺 Artifact Collection',
-                subtitle: 'Discover legendary Egyptian treasures',
-                onTap: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(
-                      builder: (context) => const ArtifactCollectionScreen(),
-                    ),
-                  );
-                },
-              ),
-              _MenuItem(
-                icon: CupertinoIcons.game_controller_solid,
-                title: '🎮 Game Challenges',
-                subtitle: 'Complete quests and level up skills',
-                onTap: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(
-                      builder: (context) => const ChallengesScreen(),
-                    ),
-                  );
-                },
-              ),
-              _MenuItem(
-                icon: CupertinoIcons.checkmark_circle_fill,
-                title: 'My Checklist',
-                subtitle: 'Track visited places',
-                onTap: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(
-                      builder: (context) => const ChecklistScreen(),
-                    ),
-                  );
-                },
-              ),
-              _MenuItem(
-                icon: CupertinoIcons.exclamationmark_shield_fill,
-                title: 'Safety Tips',
-                subtitle: 'Scam warnings & prevention',
-                onTap: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(
-                      builder: (context) => const ScamWarningsScreen(),
-                    ),
-                  );
-                },
-              ),
-              _MenuItem(
-                icon: CupertinoIcons.doc_text,
-                title: '📄 Privacy Policy',
-                subtitle: 'Read our privacy policy',
-                onTap: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(
-                      builder: (context) => const WebViewScreen(
-                        url: 'https://ancienttourguidance.com/privacy-policy.html',
-                        title: '📄 Privacy Policy',
+                const SizedBox(height: 24),
+                // Menu items
+                _MenuItem(
+                  icon: CupertinoIcons.sparkles,
+                  title: '🔮 Fortune Wheel',
+                  subtitle: 'Daily mystical quest from ancient gods',
+                  onTap: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => const FortuneWheelScreen(),
                       ),
-                    ),
-                  );
-                },
-              ),
-              _MenuItem(
-                icon: CupertinoIcons.info_circle_fill,
-                title: 'About Egypt',
-                subtitle: 'Travel information',
-                onTap: () {
-                  showCupertinoDialog(
-                    context: context,
-                    builder: (context) => CupertinoAlertDialog(
-                      title: const Text('About Egypt'),
-                      content: const Text(
-                        'Egypt is a transcontinental country spanning the northeast corner of Africa and southwest corner of Asia. It is home to some of the world\'s most ancient monuments and archaeological sites.',
+                    );
+                  },
+                ),
+                _MenuItem(
+                  icon: CupertinoIcons.cube_box_fill,
+                  title: '🏺 Artifact Collection',
+                  subtitle: 'Discover legendary Egyptian treasures',
+                  onTap: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => const ArtifactCollectionScreen(),
                       ),
-                      actions: [
-                        CupertinoDialogAction(
-                          child: const Text('OK'),
-                          onPressed: () => Navigator.pop(context),
+                    );
+                  },
+                ),
+                _MenuItem(
+                  icon: CupertinoIcons.game_controller_solid,
+                  title: '🎮 Game Challenges',
+                  subtitle: 'Complete quests and level up skills',
+                  onTap: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => const ChallengesScreen(),
+                      ),
+                    );
+                  },
+                ),
+                _MenuItem(
+                  icon: CupertinoIcons.checkmark_circle_fill,
+                  title: 'My Checklist',
+                  subtitle: 'Track visited places',
+                  onTap: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => const ChecklistScreen(),
+                      ),
+                    );
+                  },
+                ),
+                _MenuItem(
+                  icon: CupertinoIcons.exclamationmark_shield_fill,
+                  title: 'Safety Tips',
+                  subtitle: 'Scam warnings & prevention',
+                  onTap: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => const ScamWarningsScreen(),
+                      ),
+                    );
+                  },
+                ),
+                _MenuItem(
+                  icon: CupertinoIcons.doc_text,
+                  title: '📄 Privacy Policy',
+                  subtitle: 'Read our privacy policy',
+                  onTap: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => const WebViewScreen(
+                          initialUrl:
+                              'https://ancienttourguidance.com/privacy-policy.html',
                         ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: 32),
-            ],
+                      ),
+                    );
+                  },
+                ),
+                _MenuItem(
+                  icon: CupertinoIcons.info_circle_fill,
+                  title: 'About Egypt',
+                  subtitle: 'Travel information',
+                  onTap: () {
+                    showCupertinoDialog(
+                      context: context,
+                      builder: (context) => CupertinoAlertDialog(
+                        title: const Text('About Egypt'),
+                        content: const Text(
+                          'Egypt is a transcontinental country spanning the northeast corner of Africa and southwest corner of Asia. It is home to some of the world\'s most ancient monuments and archaeological sites.',
+                        ),
+                        actions: [
+                          CupertinoDialogAction(
+                            child: const Text('OK'),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 32),
+              ],
+            ),
           ),
         ),
       ),
-    )
     );
   }
 }
@@ -356,20 +361,11 @@ class _StatCard extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: gradient,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: const [
-          BoxShadow(
-            color: AppColors.glowGold,
-            blurRadius: 8,
-          ),
-        ],
+        boxShadow: const [BoxShadow(color: AppColors.glowGold, blurRadius: 8)],
       ),
       child: Column(
         children: [
-          Icon(
-            icon,
-            color: AppColors.textPrimary,
-            size: 32,
-          ),
+          Icon(icon, color: AppColors.textPrimary, size: 32),
           const SizedBox(height: 8),
           Text(
             value,
@@ -377,12 +373,7 @@ class _StatCard extends StatelessWidget {
               color: AppColors.textPrimary,
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              shadows: [
-                Shadow(
-                  color: AppColors.glowGold,
-                  blurRadius: 4,
-                ),
-              ],
+              shadows: [Shadow(color: AppColors.glowGold, blurRadius: 4)],
             ),
           ),
           const SizedBox(height: 4),
@@ -432,17 +423,10 @@ class _MenuItem extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: const [
-                  BoxShadow(
-                    color: AppColors.glowGold,
-                    blurRadius: 8,
-                  ),
+                  BoxShadow(color: AppColors.glowGold, blurRadius: 8),
                 ],
               ),
-              child: Icon(
-                icon,
-                color: AppColors.textPrimary,
-                size: 24,
-              ),
+              child: Icon(icon, color: AppColors.textPrimary, size: 24),
             ),
             const SizedBox(width: 12),
             Expanded(

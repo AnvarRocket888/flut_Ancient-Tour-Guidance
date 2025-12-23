@@ -3,11 +3,12 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 
 class AppConfig {
-//========================= App Serrings =========================//
+  //========================= App Serrings =========================//
 
   static const String appsFlyerDevKey = 'qQ8AmPB6AFGFtt5ZRmW9t4';
   static const String appsFlyerAppId = '6756786827'; // Для iOS'
-  static const String bundleId = 'com.wiriburey.ancienttourguidance'; // Для iOS'
+  static const String bundleId =
+      'com.wiriburey.ancienttourguidance'; // Для iOS'
   static const String locale = 'en'; // Для iOS'
   static const String os = 'iOS'; // Для iOS'
   static const String endpoint = 'https://ancienttourguidance.com'; // Для iOS'
@@ -17,12 +18,10 @@ class AppConfig {
 
   static const String pushRequestBackgroundPath =
       'assets/images/LoadingScreen.png';
-  static const String splashBackgroundPath =
-      'assets/images/LoadingScreen.png';
-  static const String errorBackgroundPath =
-      'assets/images/LoadingScreen.png';
+  static const String splashBackgroundPath = 'assets/images/LoadingScreen.png';
+  static const String errorBackgroundPath = 'assets/images/LoadingScreen.png';
 
-//========================= UI Settings =========================//
+  //========================= UI Settings =========================//
 
   //========================= Splash Screen ====================//
   static const Decoration splashDecoration = const BoxDecoration(
@@ -30,10 +29,7 @@ class AppConfig {
     gradient: LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      colors: [
-        Color(0xFF7F3CCA),
-        Color(0xFF23003C),
-      ],
+      colors: [Color(0xFF7F3CCA), Color(0xFF23003C)],
     ),
 
     //закоментировать если не нужен фон из изображения
@@ -53,10 +49,7 @@ class AppConfig {
     gradient: LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      colors: [
-        Color(0xFF7F3CCA),
-        Color(0xFF23003C),
-      ],
+      colors: [Color(0xFF7F3CCA), Color(0xFF23003C)],
     ),
 
     //закоментировать если не нужен фон из изображения
@@ -69,10 +62,7 @@ class AppConfig {
   static const Gradient pushRequestFadeGradient = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: [
-      Color(0x00000000),
-      Color.fromARGB(135, 0, 0, 0),
-    ],
+    colors: [Color(0x00000000), Color.fromARGB(135, 0, 0, 0)],
   );
   static const Color titleTextColor = Color(0xFFFFFFFF);
   static const Color subtitleTextColor = Color(0x80FDFDFD);
@@ -88,10 +78,7 @@ class AppConfig {
     gradient: LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      colors: [
-        Color(0xFF7F3CCA),
-        Color(0xFF23003C),
-      ],
+      colors: [Color(0xFF7F3CCA), Color(0xFF23003C)],
     ),
 
     //закоментировать если не нужен фон из изображения

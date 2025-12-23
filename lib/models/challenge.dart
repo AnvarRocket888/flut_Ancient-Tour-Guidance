@@ -14,21 +14,21 @@ class Challenge {
   });
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        'category': category.name,
-        'isCompleted': isCompleted,
-      };
+    'id': id,
+    'title': title,
+    'category': category.name,
+    'isCompleted': isCompleted,
+  };
 
   factory Challenge.fromJson(Map<String, dynamic> json) => Challenge(
-        id: json['id'],
-        title: json['title'],
-        category: ChallengeCategory.values.firstWhere(
-          (e) => e.name == json['category'],
-          orElse: () => ChallengeCategory.courage,
-        ),
-        isCompleted: json['isCompleted'] ?? false,
-      );
+    id: json['id'],
+    title: json['title'],
+    category: ChallengeCategory.values.firstWhere(
+      (e) => e.name == json['category'],
+      orElse: () => ChallengeCategory.courage,
+    ),
+    isCompleted: json['isCompleted'] ?? false,
+  );
 
   static List<Challenge> getDefaultChallenges() {
     return [

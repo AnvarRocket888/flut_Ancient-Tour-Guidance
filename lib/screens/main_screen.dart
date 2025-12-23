@@ -83,7 +83,12 @@ class _MainScreenState extends State<MainScreen> {
       navBarStyle: NavBarStyle.style9,
       backgroundColor: AppColors.secondaryBg,
       decoration: NavBarDecoration(
-        border: Border(top: BorderSide(color: AppColors.goldSecondary.withValues(alpha: 0.3), width: 1)),
+        border: Border(
+          top: BorderSide(
+            color: AppColors.goldSecondary.withValues(alpha: 0.3),
+            width: 1,
+          ),
+        ),
       ),
     );
   }

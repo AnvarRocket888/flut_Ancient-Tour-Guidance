@@ -23,13 +23,16 @@ class _PlacesScreenState extends State<PlacesScreen> {
     final places = provider.places.where((place) {
       final matchesSearch =
           place.name.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-              place.location.toLowerCase().contains(_searchQuery.toLowerCase());
-      final matchesCategory = _selectedCategory == 'All' ||
-          place.category == _selectedCategory;
+          place.location.toLowerCase().contains(_searchQuery.toLowerCase());
+      final matchesCategory =
+          _selectedCategory == 'All' || place.category == _selectedCategory;
       return matchesSearch && matchesCategory;
     }).toList();
 
-    final categories = ['All', ...provider.places.map((p) => p.category).toSet()];
+    final categories = [
+      'All',
+      ...provider.places.map((p) => p.category).toSet(),
+    ];
 
     return Container(
       decoration: AppStyles.backgroundGradient,
@@ -37,108 +40,117 @@ class _PlacesScreenState extends State<PlacesScreen> {
         backgroundColor: CupertinoColors.transparent,
         navigationBar: CupertinoNavigationBar(
           backgroundColor: AppColors.secondaryBg.withValues(alpha: 0.9),
-          border: Border(bottom: BorderSide(color: AppColors.goldSecondary.withValues(alpha: 0.3), width: 1)),
-          middle: Text(
-            '📍 Discover Places',
-            style: AppStyles.titleSmall,
+          border: Border(
+            bottom: BorderSide(
+              color: AppColors.goldSecondary.withValues(alpha: 0.3),
+              width: 1,
+            ),
           ),
+          middle: Text('📍 Discover Places', style: AppStyles.titleSmall),
         ),
-      child: SafeArea(
-        child: Column(
-          children: [
-            // Search bar
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Container(
-                decoration: AppStyles.cardDecoration,
-                child: CupertinoSearchTextField(
-                  style: AppStyles.bodyLarge,
-                  placeholderStyle: AppStyles.bodySmall,
-                  itemColor: AppColors.goldPrimary,
-                  decoration: const BoxDecoration(),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  onChanged: (value) {
-                    setState(() {
-                      _searchQuery = value;
-                    });
-                  },
+        child: SafeArea(
+          child: Column(
+            children: [
+              // Search bar
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Container(
+                  decoration: AppStyles.cardDecoration,
+                  child: CupertinoSearchTextField(
+                    style: AppStyles.bodyLarge,
+                    placeholderStyle: AppStyles.bodySmall,
+                    itemColor: AppColors.goldPrimary,
+                    decoration: const BoxDecoration(),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        _searchQuery = value;
+                      });
+                    },
+                  ),
                 ),
               ),
-            ),
-            // Category filter
-            SizedBox(
-              height: 50,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  final category = categories[index];
-                  final isSelected = category == _selectedCategory;
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedCategory = category;
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        decoration: isSelected
-                            ? AppStyles.buttonDecoration
-                            : AppStyles.cardDecoration,
-                        child: Text(
-                          category == 'All' ? '✨ All' : category,
-                          style: AppStyles.bodyMedium.copyWith(
-                            color: isSelected ? AppColors.primaryBg : AppColors.textPrimary,
-                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              // Category filter
+              SizedBox(
+                height: 50,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: categories.length,
+                  itemBuilder: (context, index) {
+                    final category = categories[index];
+                    final isSelected = category == _selectedCategory;
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedCategory = category;
+                          });
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 10,
+                          ),
+                          decoration: isSelected
+                              ? AppStyles.buttonDecoration
+                              : AppStyles.cardDecoration,
+                          child: Text(
+                            category == 'All' ? '✨ All' : category,
+                            style: AppStyles.bodyMedium.copyWith(
+                              color: isSelected
+                                  ? AppColors.primaryBg
+                                  : AppColors.textPrimary,
+                              fontWeight: isSelected
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            // Places list
-            Expanded(
-              child: places.isEmpty
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '🔍',
-                            style: TextStyle(fontSize: 60),
-                          ),
-                          SizedBox(height: 16),
-                          Text(
-                            'No places found',
-                            style: AppStyles.titleSmall,
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            'Try different search or filter',
-                            style: AppStyles.bodySmall,
-                          ),
-                        ],
+              const SizedBox(height: 16),
+              // Places list
+              Expanded(
+                child: places.isEmpty
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('🔍', style: TextStyle(fontSize: 60)),
+                            SizedBox(height: 16),
+                            Text(
+                              'No places found',
+                              style: AppStyles.titleSmall,
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              'Try different search or filter',
+                              style: AppStyles.bodySmall,
+                            ),
+                          ],
+                        ),
+                      )
+                    : ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        itemCount: places.length,
+                        itemBuilder: (context, index) {
+                          final place = places[index];
+                          return _PlaceCard(place: place);
+                        },
                       ),
-                    )
-                  : ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: places.length,
-                      itemBuilder: (context, index) {
-                        final place = places[index];
-                        return _PlaceCard(place: place);
-                      },
-                    ),
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
-    )
     );
   }
 }
@@ -197,10 +209,7 @@ class _PlaceCard extends StatelessWidget {
                       width: 2,
                     ),
                     boxShadow: const [
-                      BoxShadow(
-                        color: AppColors.glowBlue,
-                        blurRadius: 10,
-                      ),
+                      BoxShadow(color: AppColors.glowBlue, blurRadius: 10),
                     ],
                   ),
                   child: Center(
@@ -252,7 +261,10 @@ class _PlaceCard extends StatelessWidget {
                       shape: BoxShape.circle,
                       gradient: isFavorite
                           ? const LinearGradient(
-                              colors: [AppColors.accentPink, AppColors.goldSecondary],
+                              colors: [
+                                AppColors.accentPink,
+                                AppColors.goldSecondary,
+                              ],
                             )
                           : null,
                       color: isFavorite ? null : AppColors.tertiaryBg,
@@ -269,7 +281,9 @@ class _PlaceCard extends StatelessWidget {
                       isFavorite
                           ? CupertinoIcons.heart_fill
                           : CupertinoIcons.heart,
-                      color: isFavorite ? AppColors.textPrimary : AppColors.textTertiary,
+                      color: isFavorite
+                          ? AppColors.textPrimary
+                          : AppColors.textTertiary,
                       size: 20,
                     ),
                   ),
@@ -331,9 +345,7 @@ class _InfoChip extends StatelessWidget {
         children: [
           Text(
             label,
-            style: AppStyles.bodySmall.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            style: AppStyles.bodySmall.copyWith(fontWeight: FontWeight.w600),
           ),
         ],
       ),

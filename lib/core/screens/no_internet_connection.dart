@@ -18,7 +18,6 @@ class NoInternetConnectionScreen extends StatelessWidget {
   }
 
   static void showIfNoInternet(BuildContext context) async {
-    print('ShowIfNoInternet');
     Navigator.pushAndRemoveUntil(
       context!,
       MaterialPageRoute(
@@ -41,8 +40,11 @@ class NoInternetConnectionScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.wifi_off,
-                  size: 80, color: AppConfig.errorScreenIconColor),
+              Icon(
+                Icons.wifi_off,
+                size: 80,
+                color: AppConfig.errorScreenIconColor,
+              ),
               SizedBox(height: 20),
               Text(
                 'Please, check your internet connection and restart',

@@ -74,19 +74,14 @@ class SdkInitializer {
       final jsonString = saveRuntimeStorage();
       await prefs!.setString('runtimeStorage', jsonString);
       //  print("save data $jsonString");
-    } catch (e) {
-      print('Ошибка при сохранении runtimeStorage на девайсе: $e');
-    }
+    } catch (e) {}
   }
 
   static Future<void> loadRuntimeStorageToDevice() async {
     try {
       var json = await prefs!.getString('runtimeStorage');
       loadRuntimeStorage(json!);
-      print('runtimeStorage успешно загружен');
-    } catch (e) {
-      print('Ошибка при сохранении runtimeStorage на девайсе: $e');
-    }
+    } catch (e) {}
   }
 
   static dynamic getValue(String key) {
@@ -114,7 +109,6 @@ class SdkInitializer {
   }
 
   static void showWeb(BuildContext context) {
-    print('3 showWeb');
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => const WebViewScreen()),
@@ -122,15 +116,14 @@ class SdkInitializer {
     );
   }
 
-  static const MethodChannel _channel =
-      MethodChannel('com.yourapp/native_methods');
+  static const MethodChannel _channel = MethodChannel(
+    'com.yourapp/native_methods',
+  );
 
   static Future<void> callSwiftMethod() async {
     try {
       await _channel.invokeMethod('callSwiftMethod');
-    } on PlatformException catch (e) {
-      print("Failed to call Swift method: '${e.message}'");
-    }
+    } on PlatformException catch (e) {}
   }
 
   static Future<void> initAll(BuildContext context) async {
@@ -158,7 +151,7 @@ class SdkInitializer {
       var isOrganic = getValue("Organic");
       if (!isOrganic) {
         Map<String, dynamic> conversion = getValue("conversionData");
-        print(conversion);
+
         receivedUrl = await makeConversion(conversion);
         if (PushRequestControl.shouldShowPushRequest(pushRequestData!)) {
           Navigator.pushAndRemoveUntil(
@@ -167,8 +160,8 @@ class SdkInitializer {
             (route) => false,
           );
         } else {
-          final initialMessage =
-              await FirebaseMessaging.instance.getInitialMessage();
+          final initialMessage = await FirebaseMessaging.instance
+              .getInitialMessage();
           if (initialMessage != null) {
             _onMessageOpenedApp(initialMessage);
           }
@@ -189,7 +182,6 @@ class SdkInitializer {
   }
 
   static void _onMessageOpenedApp(RemoteMessage message) {
-    print('1 Notification caused the app to open: ${message.data.toString()}');
     SdkInitializer.pushURL = message.data['url'];
 
     // TODO: Add navigation or specific handling based on message data
@@ -230,7 +222,6 @@ class SdkInitializer {
 
   static void onEndRequest(String? url) {
     if (url == null || url == "") {
-      print('not url');
       setValue("Organic", true);
       setValue("isFirstStart", true);
 
@@ -251,17 +242,14 @@ class SdkInitializer {
     // Сохраняем полученную ссылку в хранилище
     receivedUrl = url;
     setValue('urlReceivedAt', DateTime.now().toIso8601String());
-    print('url');
 
     if (PushRequestControl.shouldShowPushRequest(pushRequestData!)) {
-      print('url1');
       Navigator.pushAndRemoveUntil(
         _context!,
         MaterialPageRoute(builder: (context) => const PushRequestScreen()),
         (route) => false,
       );
     } else {
-      print('url2');
       Navigator.push(
         _context!,
         MaterialPageRoute(builder: (context) => const WebViewScreen()),
@@ -280,107 +268,76 @@ class SdkInitializer {
     );
     _appsflyerSdk = AppsflyerSdk(options);
     // App open attribution callback
-    print('add af');
-    _appsflyerSdk!.onAppOpenAttribution((res) {
-      print("onAppOpenAttribution res: $res");
-    });
+
+    _appsflyerSdk!.onAppOpenAttribution((res) {});
     _appsflyerSdk!.setOneLinkCustomDomain(['']);
     // Deep linking callback
     _appsflyerSdk!.onDeepLinking((DeepLinkResult dp) {
       switch (dp.status) {
         case Status.FOUND:
-          print(dp.deepLink?.toString());
-          print("onDeepLinking res: $dp");
-
           var map = dp.deepLink!.clickEvent;
           //_convrtsion.addEntries(map as Iterable<MapEntry<String, dynamic>>);
           _convrtsion.addAll(map);
-          print(
-              'deep_link_value=$deep_link_value deep_link_sub1=$deep_link_sub1|');
           break;
         case Status.NOT_FOUND:
-          print("deep link not found");
           break;
         case Status.ERROR:
-          print("deep link error: ${dp.error}");
           break;
         case Status.PARSE_ERROR:
-          print("deep link status parsing error");
           break;
       }
-      print("onDeepLinking res: $dp");
     });
 
     _appsflyerSdk
         ?.initSdk(
-      registerConversionDataCallback: true,
-      registerOnAppOpenAttributionCallback: true,
-      registerOnDeepLinkingCallback: true,
-    )
+          registerConversionDataCallback: true,
+          registerOnAppOpenAttributionCallback: true,
+          registerOnDeepLinkingCallback: true,
+        )
         .then((value) {
-      print('_appsflyerSdk initSdk');
+          // _appsflyerSdk!
+          //     .onDeepLinking((DeepLinkResult dl) => (DeepLinkResult dl) {
 
-      // _appsflyerSdk!
-      //     .onDeepLinking((DeepLinkResult dl) => (DeepLinkResult dl) {
+          //     });
+          _appsflyerSdk?.onInstallConversionData((res) {
+            if (isHasConversion) return;
+            isHasConversion = true;
+            _appsflyerSdk?.getAppsFlyerUID().then((value) async {
+              if (value == null) return;
+              Map<String, dynamic> conversionMap = res["payload"];
 
-      //     });
-      _appsflyerSdk?.onInstallConversionData((res) {
-        if (isHasConversion) return;
-        isHasConversion = true;
-        _appsflyerSdk?.getAppsFlyerUID().then((value) async {
-          if (value == null) return;
-          Map<String, dynamic> conversionMap = res["payload"];
+              for (var entry in conversionMap.entries) {
+                //if (_convrtsion.containsKey(entry.key)) continue;
+                if (entry.value != '') {
+                  _convrtsion[entry.key] = entry.value;
+                }
+              }
 
-          print("start load conversion 1");
-          print("af_sub2: ${conversionMap['af_sub1']}");
+              // _convrtsion.addAll(conversionMap);
+              // _convrtsion
+              //     .addEntries(conversionMap as Iterable<MapEntry<String, dynamic>>);
+              if (_convrtsion != null) {
+                _convrtsion.addEntries([MapEntry("af_id", value)]);
 
-          print(_convrtsion);
-          print("start load conversion 2");
+                setValue('conversionData', _convrtsion);
+                var url = await makeConversion(_convrtsion);
 
-          print(conversionMap);
+                onEndRequest(url);
+              }
+            });
 
-          print("start load conversion 3");
-
-          for (var entry in conversionMap.entries) {
-            //if (_convrtsion.containsKey(entry.key)) continue;
-            if (entry.value != '') {
-              _convrtsion[entry.key] = entry.value;
-
-              print(
-                  '|${entry.key} - ${entry.value} |${_convrtsion[entry.key]}');
-            }
-          }
-
-          // _convrtsion.addAll(conversionMap);
-          // _convrtsion
-          //     .addEntries(conversionMap as Iterable<MapEntry<String, dynamic>>);
-          if (_convrtsion != null) {
-            _convrtsion.addEntries([MapEntry("af_id", value)]);
-
-            setValue('conversionData', _convrtsion);
-            var url = await makeConversion(_convrtsion);
-            print("url -" + url);
-            onEndRequest(url);
-          }
-        });
-
-        // if (res is Map<dynamic, dynamic>) {
-        //    Map<String, dynamic>? conversionMap =(res as Map<dynamic, dynamic>)["asd"];
-        // }
-      });
-      // Starting the SDK with optional success and error callbacks
-      _appsflyerSdk?.startSDK(
-        onSuccess: () {
-          print("AppsFlyer SDK initialized successfully.");
-        },
-        onError: (int errorCode, String errorMessage) {
-          print(options.afDevKey + " " + options.appId);
-          print(
-            "Error initializing AppsFlyer SDK: Code $errorCode - $errorMessage",
+            // if (res is Map<dynamic, dynamic>) {
+            //    Map<String, dynamic>? conversionMap =(res as Map<dynamic, dynamic>)["asd"];
+            // }
+          });
+          // Starting the SDK with optional success and error callbacks
+          _appsflyerSdk?.startSDK(
+            onSuccess: () {},
+            onError: (int errorCode, String errorMessage) {
+              // Error handling
+            },
           );
-        },
-      );
-    });
+        });
     // Initialization of the AppsFlyer SDK
 
     // Starting the SDK with optional success and error callbacks
@@ -410,24 +367,20 @@ class SdkInitializer {
 
       // Убеждаемся, что FCM token получен (это запустит регистрацию и выдачу APNS токена на iOS)
       var token = await FirebaseMessaging.instance.getAPNSToken();
-      print("first token");
-      print(token);
-      print(DefaultFirebaseOptions.currentPlatform.projectId);
+
       String? apnsToken;
       int retries = 10;
       // Ждём пока APNS токен не станет доступен
       for (int i = 0; i < retries; i++) {
         apnsToken = await FirebaseMessaging.instance.getAPNSToken();
         if (apnsToken != null && apnsToken.isNotEmpty) {
-          print('APNS токен получен: $apnsToken');
           return apnsToken;
         }
         await Future.delayed(const Duration(milliseconds: 500));
       }
-      print('APNS токен не получен (timeout)');
+
       return null;
     } catch (e) {
-      print('Ошибка при получении APNS токена: $e');
       return null;
     }
   }
@@ -460,14 +413,13 @@ class SdkInitializer {
     setValue("pushRequestData", pushRequestData?.toJson());
     _convrtsion = SdkInitializer.getValue('conversionData');
     if (_convrtsion is Map<String, dynamic>) {
-      print("makeConversion 2");
       var url = await SdkInitializer.secondMakeConversion(
         _convrtsion,
         apnsToken: token,
         isLoad: false,
       );
       setValue(url, "receivedUrl");
-      print("pushRequest ");
+
       _runtimeStorage['receivedUrl'] = url;
       Navigator.pushAndRemoveUntil(
         context,
@@ -484,9 +436,6 @@ class SdkInitializer {
   }) async {
     conversionMap.addEntries([MapEntry("push_token", apnsToken)]);
 
-    print(conversionMap["firebase_project_id"]);
-
-    print("with token " + conversionMap.toString());
     setValue("", conversionMap);
     var result = await sendPostRequest(
       body: conversionMap,
@@ -509,9 +458,8 @@ class SdkInitializer {
 }
 
 Map<String, dynamic> parseJsonFromString(String jsonString) {
-  print("1 " + jsonString);
   String cleanedString = jsonString.trim();
-  print("2 " + cleanedString);
+
   // Парсим JSON строку в Map
   Map<String, dynamic> jsonMap = jsonDecode(cleanedString);
 
@@ -525,7 +473,6 @@ String mapToJsonString(Map<String, dynamic> map) {
     String jsonString = json.encode(map);
     return jsonString;
   } catch (e) {
-    print('Ошибка преобразования в JSON: $e');
     return '{}';
   }
 }
@@ -536,7 +483,6 @@ Future<Map<String, dynamic>?> sendPostRequest({
   Map<String, String>? headers,
   Duration timeout = const Duration(seconds: 30),
 }) async {
-  print(body);
   try {
     // Подготавливаем заголовки
     Map<String, String> requestHeaders = {
@@ -557,11 +503,10 @@ Future<Map<String, dynamic>?> sendPostRequest({
       return result;
     } else {
       // Ошибка HTTP
-      print('HTTP Error: ${response.statusCode} - ${response.body}');
+
       return null;
     }
   } catch (e) {
-    print('Ошибка запроса: $e');
     return null;
   }
 }

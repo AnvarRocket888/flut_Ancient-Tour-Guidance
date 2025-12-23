@@ -1,5 +1,8 @@
+import 'package:ancienttourguidance/core/screens/no_internet_connection.dart';
+import 'package:ancienttourguidance/core/screens/push_request_screen.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/services/sdk_initializer.dart';
@@ -15,19 +18,15 @@ void main() async {
   await SdkInitializer.loadRuntimeStorageToDevice();
   var isFirstStart = !SdkInitializer.hasValue("isFirstStart");
   var isOrganic = SdkInitializer.getValue("Organic");
-  print('add af2 $isFirstStart $isOrganic');
   if (isFirstStart) SdkInitializer.initAppsFlyer();
 
-  runApp(
-    const App(),
-  );
+  runApp(const App());
 }
 
 Future<void> initTrackingAppTransparency() async {
   try {
     final TrackingStatus status =
         await AppTrackingTransparency.requestTrackingAuthorization();
-    print('App Tracking Transparency status: $status');
     int timeout = 0;
     while (status == TrackingStatus.notDetermined && timeout < 10) {
       final TrackingStatus newStatus =
@@ -36,7 +35,7 @@ Future<void> initTrackingAppTransparency() async {
       timeout++;
     }
   } catch (e) {
-    print('Error requesting App Tracking Transparency authorization: $e');
+    // Error handling
   }
 }
 
@@ -48,6 +47,8 @@ class App extends StatelessWidget {
     return const CupertinoApp(
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
+      // home: PushRequestScreen(),
+      // home: NoInternetConnectionScreen(),
     );
   }
 }

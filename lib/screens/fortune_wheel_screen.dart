@@ -35,14 +35,14 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen>
 
   void _spin() {
     final provider = Provider.of<AppProvider>(context, listen: false);
-    
+
     if (!provider.canSpinFortuneWheel) {
       _showAlreadySpunDialog();
       return;
     }
 
     setState(() => _isSpinning = true);
-    
+
     _spinController.reset();
     _spinController.forward().then((_) {
       final reward = provider.spinFortuneWheel();
@@ -87,10 +87,7 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen>
         ),
         content: Padding(
           padding: const EdgeInsets.only(top: 12),
-          child: Text(
-            reward.description,
-            style: const TextStyle(fontSize: 15),
-          ),
+          child: Text(reward.description, style: const TextStyle(fontSize: 15)),
         ),
         actions: [
           CupertinoDialogAction(
@@ -139,7 +136,7 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 40),
-                
+
                 // Title
                 Text(
                   'Ancient Egyptian Oracle',
@@ -148,16 +145,13 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen>
                     fontWeight: FontWeight.bold,
                     color: AppColors.goldPrimary,
                     shadows: [
-                      Shadow(
-                        color: AppColors.glowGold,
-                        blurRadius: 20,
-                      ),
+                      Shadow(color: AppColors.glowGold, blurRadius: 20),
                     ],
                   ),
                 ),
-                
+
                 const SizedBox(height: 12),
-                
+
                 Text(
                   'Spin once per day',
                   style: TextStyle(
@@ -165,9 +159,9 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen>
                     color: AppColors.textSecondary,
                   ),
                 ),
-                
+
                 const SizedBox(height: 60),
-                
+
                 // Fortune Wheel
                 AnimatedBuilder(
                   animation: _spinController,
@@ -221,7 +215,16 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen>
                             // Symbols around
                             ...List.generate(8, (index) {
                               final angle = (index * math.pi * 2 / 8);
-                              final symbols = ['☥', '🔺', '👁️', '🐍', '⚱️', '🪲', '☀️', '🌙'];
+                              final symbols = [
+                                '☥',
+                                '🔺',
+                                '👁️',
+                                '🐍',
+                                '⚱️',
+                                '🪲',
+                                '☀️',
+                                '🌙',
+                              ];
                               return Positioned(
                                 left: 140 + math.cos(angle) * 100 - 15,
                                 top: 140 + math.sin(angle) * 100 - 15,
@@ -237,9 +240,9 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen>
                     );
                   },
                 ),
-                
+
                 const SizedBox(height: 80),
-                
+
                 // Spin Button
                 GestureDetector(
                   onTap: _isSpinning ? null : _spin,
@@ -273,8 +276,8 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen>
                       _isSpinning
                           ? 'Spinning...'
                           : canSpin
-                              ? '✨ SPIN THE WHEEL ✨'
-                              : '🔒 Come Back Tomorrow',
+                          ? '✨ SPIN THE WHEEL ✨'
+                          : '🔒 Come Back Tomorrow',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -285,9 +288,9 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen>
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 40),
-                
+
                 // Current reward if already spun
                 if (!canSpin && provider.todayFortuneReward != null)
                   Container(
@@ -336,7 +339,7 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen>
                       ],
                     ),
                   ),
-                
+
                 const SizedBox(height: 40),
               ],
             ),

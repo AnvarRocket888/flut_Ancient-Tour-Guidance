@@ -126,7 +126,9 @@ class ArtifactCollectionScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: ArtifactRarity.values.map((rarity) {
                         final count = provider.getArtifactCountByRarity(rarity);
-                        final total = provider.getTotalArtifactsByRarity(rarity);
+                        final total = provider.getTotalArtifactsByRarity(
+                          rarity,
+                        );
                         return Column(
                           children: [
                             Text(
@@ -231,10 +233,7 @@ class ArtifactCollectionScreen extends StatelessWidget {
                       ),
                       child: Row(
                         children: [
-                          Text(
-                            '✨',
-                            style: const TextStyle(fontSize: 16),
-                          ),
+                          Text('✨', style: const TextStyle(fontSize: 16)),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
@@ -264,16 +263,13 @@ class ArtifactCollectionScreen extends StatelessWidget {
                   crossAxisSpacing: 12,
                   childAspectRatio: 0.85,
                 ),
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final artifact = artifacts[index];
-                    return _ArtifactCard(
-                      artifact: artifact,
-                      color: _parseColor(artifact.rarity.color),
-                    );
-                  },
-                  childCount: artifacts.length,
-                ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final artifact = artifacts[index];
+                  return _ArtifactCard(
+                    artifact: artifact,
+                    color: _parseColor(artifact.rarity.color),
+                  );
+                }, childCount: artifacts.length),
               ),
             ),
           ],
@@ -285,10 +281,7 @@ class ArtifactCollectionScreen extends StatelessWidget {
   Widget _buildHowToItem(String emoji, String title, String description) {
     return Row(
       children: [
-        Text(
-          emoji,
-          style: const TextStyle(fontSize: 20),
-        ),
+        Text(emoji, style: const TextStyle(fontSize: 20)),
         const SizedBox(width: 10),
         Expanded(
           child: Column(
@@ -304,10 +297,7 @@ class ArtifactCollectionScreen extends StatelessWidget {
               ),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: AppColors.textSecondary,
-                ),
+                style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
               ),
             ],
           ),
@@ -321,17 +311,12 @@ class _ArtifactCard extends StatelessWidget {
   final Artifact artifact;
   final Color color;
 
-  const _ArtifactCard({
-    required this.artifact,
-    required this.color,
-  });
+  const _ArtifactCard({required this.artifact, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: artifact.isUnlocked
-          ? () => _showArtifactDetails(context)
-          : null,
+      onTap: artifact.isUnlocked ? () => _showArtifactDetails(context) : null,
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -369,19 +354,16 @@ class _ArtifactCard extends StatelessWidget {
           children: [
             // Emoji or locked icon
             if (artifact.isUnlocked)
-              Text(
-                artifact.emoji,
-                style: const TextStyle(fontSize: 60),
-              )
+              Text(artifact.emoji, style: const TextStyle(fontSize: 60))
             else
               Icon(
                 CupertinoIcons.lock_fill,
                 size: 50,
                 color: AppColors.textTertiary,
               ),
-            
+
             const SizedBox(height: 12),
-            
+
             // Rarity indicator
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -401,9 +383,9 @@ class _ArtifactCard extends StatelessWidget {
                 ),
               ],
             ),
-            
+
             const SizedBox(height: 8),
-            
+
             // Name
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -437,10 +419,7 @@ class _ArtifactCard extends StatelessWidget {
             Text(artifact.emoji),
             const SizedBox(width: 8),
             Flexible(
-              child: Text(
-                artifact.name,
-                style: const TextStyle(fontSize: 18),
-              ),
+              child: Text(artifact.name, style: const TextStyle(fontSize: 18)),
             ),
           ],
         ),
@@ -454,28 +433,19 @@ class _ArtifactCard extends StatelessWidget {
                 const SizedBox(width: 4),
                 Text(
                   artifact.rarity.name,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: color,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: color),
                 ),
               ],
             ),
             const SizedBox(height: 12),
             Text(
               artifact.description,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 12),
             Text(
               artifact.legend,
-              style: TextStyle(
-                fontSize: 14,
-                color: AppColors.textSecondary,
-              ),
+              style: TextStyle(fontSize: 14, color: AppColors.textSecondary),
             ),
           ],
         ),

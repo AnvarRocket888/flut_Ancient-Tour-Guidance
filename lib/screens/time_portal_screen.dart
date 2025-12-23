@@ -108,7 +108,7 @@ class _TimePortalScreenState extends State<TimePortalScreen>
         child: Column(
           children: [
             const SizedBox(height: 20),
-            
+
             // Place name
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -122,19 +122,16 @@ class _TimePortalScreenState extends State<TimePortalScreen>
                 textAlign: TextAlign.center,
               ),
             ),
-            
+
             const SizedBox(height: 12),
-            
+
             Text(
               'Journey Through Time',
-              style: TextStyle(
-                fontSize: 16,
-                color: AppColors.textSecondary,
-              ),
+              style: TextStyle(fontSize: 16, color: AppColors.textSecondary),
             ),
-            
+
             const SizedBox(height: 40),
-            
+
             // Time portal animation
             AnimatedBuilder(
               animation: _controller,
@@ -173,9 +170,9 @@ class _TimePortalScreenState extends State<TimePortalScreen>
                 );
               },
             ),
-            
+
             const SizedBox(height: 40),
-            
+
             // Event card
             Expanded(
               child: SingleChildScrollView(
@@ -237,9 +234,9 @@ class _TimePortalScreenState extends State<TimePortalScreen>
                             ),
                           ),
                         ),
-                        
+
                         const SizedBox(height: 20),
-                        
+
                         // Title
                         Text(
                           currentEvent.title,
@@ -250,9 +247,9 @@ class _TimePortalScreenState extends State<TimePortalScreen>
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        
+
                         const SizedBox(height: 16),
-                        
+
                         // Description
                         Text(
                           currentEvent.description,
@@ -269,7 +266,7 @@ class _TimePortalScreenState extends State<TimePortalScreen>
                 ),
               ),
             ),
-            
+
             // Navigation
             Padding(
               padding: const EdgeInsets.all(24),
@@ -300,9 +297,9 @@ class _TimePortalScreenState extends State<TimePortalScreen>
                       );
                     }),
                   ),
-                  
+
                   const SizedBox(height: 20),
-                  
+
                   // Navigation buttons
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

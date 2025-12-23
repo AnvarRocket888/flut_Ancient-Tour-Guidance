@@ -28,19 +28,16 @@ class UrlLauncherService {
       //   return;
       // }
 
-      await launchUrl(
-        uri,
-        mode: LaunchMode.externalApplication,
-      );
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     } catch (e) {
       // _showErrorSnackbar(context, 'Ошибка: $e');
     }
   }
 
   static void _showErrorSnackbar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 }
 
@@ -49,9 +46,7 @@ Future<void> _launchURL(String url) async {
   // await LaunchApp.openApp(
   //   iosUrlScheme: url, // Example for Instagram
   // );
-  UrlLauncherService.launchInBrowser(
-    url: url,
-  );
+  UrlLauncherService.launchInBrowser(url: url);
 
   // if (await canLaunchUrl(Uri.parse(url))) {
   //   await launchUrl(
@@ -64,16 +59,17 @@ Future<void> _launchURL(String url) async {
 }
 
 class NativeMethodCaller {
-  static const MethodChannel _channel =
-      MethodChannel('com.yourapp/native_methods');
+  static const MethodChannel _channel = MethodChannel(
+    'com.yourapp/native_methods',
+  );
 
   static Future<void> callSwiftMethodWithParams(
-      Map<String, dynamic> params) async {
-    print("callSwiftMethodWithParams ${params.toString()}");
+    Map<String, dynamic> params,
+  ) async {
     try {
       await _channel.invokeMethod('callSwiftMethodWithParams', params);
     } on PlatformException catch (e) {
-      print("Failed to call Swift method: '${e.message}'");
+      // Error handling
     }
   }
 }
@@ -95,97 +91,89 @@ class _WebViewScreenState extends State<WebViewScreen> {
     if (SdkInitializer.pushURL != null) {
       urlToLoad = SdkInitializer.pushURL!;
     }
-    print("3 showWeb pushURL ${SdkInitializer.pushURL}");
-    print("3 surlToLoad -${urlToLoad}-");
-    controller = WebKitWebViewController(
-      WebKitWebViewControllerCreationParams(
-        mediaTypesRequiringUserAction: const {},
-        allowsInlineMediaPlayback: true,
-      ),
-    )
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..enableZoom(false)
-      ..setPlatformNavigationDelegate(
-        WebKitNavigationDelegate(
-          const PlatformNavigationDelegateCreationParams(),
-        )
-          ..setOnPageStarted((String url) {
-            setState(() {
-              isLoading = true;
-              currentUrl = url;
-            });
-          })
-          ..setOnPageFinished((String url) {
-            setState(() {
-              isLoading = false;
-              currentUrl = url;
-            });
-          })
-          ..setOnHttpError((HttpResponseError error) {
-            debugPrint(
-              'Error occurred on page: ${error.response?.statusCode}',
-            );
-          })
-          ..setOnWebResourceError((WebResourceError error) {
-            // print(
-            //   "error " +
-            //       error.errorCode.toString() +
-            //       "   url " +
-            //       error.url!,
-            // );
-            if (error.errorCode == -1007 ||
-                error.errorCode == -9 ||
-                error.errorCode == -0) {
-              if (error.url != null) {
-                controller.loadRequest(
-                  LoadRequestParams(uri: Uri.parse(error.url!)),
-                );
-                return;
+    controller =
+        WebKitWebViewController(
+            WebKitWebViewControllerCreationParams(
+              mediaTypesRequiringUserAction: const {},
+              allowsInlineMediaPlayback: true,
+            ),
+          )
+          ..setJavaScriptMode(JavaScriptMode.unrestricted)
+          ..enableZoom(false)
+          ..setPlatformNavigationDelegate(
+            WebKitNavigationDelegate(
+                const PlatformNavigationDelegateCreationParams(),
+              )
+              ..setOnPageStarted((String url) {
+                setState(() {
+                  isLoading = true;
+                  currentUrl = url;
+                });
+              })
+              ..setOnPageFinished((String url) {
+                setState(() {
+                  isLoading = false;
+                  currentUrl = url;
+                });
+              })
+              ..setOnHttpError((HttpResponseError error) {
+                // Error handling
+              })
+              ..setOnWebResourceError((WebResourceError error) {
+                // print(
+                //   "error " +
+                //       error.errorCode.toString() +
+                //       "   url " +
+                //       error.url!,
+                // );
+                if (error.errorCode == -1007 ||
+                    error.errorCode == -9 ||
+                    error.errorCode == -0) {
+                  if (error.url != null) {
+                    controller.loadRequest(
+                      LoadRequestParams(uri: Uri.parse(error.url!)),
+                    );
+                    return;
+                  }
+                }
+                // if (error.url!.contains("http://")) return;
+                // if (error.url!.contains("https://")) return;
+                // _launchURL(error.url!);
+              })
+              ..setOnUrlChange((UrlChange change) {
+                if (change.url!.contains("http://")) return;
+                if (change.url!.contains("https://")) return;
+                _launchURL(change.url!);
+              }),
+          )
+          ..setOnCanGoBackChange((onCanGoBackChangeCallback) {
+            controller.canGoBack().then((onValue) {
+              if (kDebugMode) {
+                // print(
+                //   "onValue " +
+                //       onValue.toString() +
+                //       " onCanGoBackChangeCallback " +
+                //       onCanGoBackChangeCallback.toString(),
+                // );
               }
-            }
-            // if (error.url!.contains("http://")) return;
-            // if (error.url!.contains("https://")) return;
-            // _launchURL(error.url!);
+              onCanGoBackChangeCallback = onValue;
+            });
           })
-          ..setOnUrlChange((UrlChange change) {
-            //  debugPrint('url change to ${change.url}');
-            if (change.url!.contains("http://")) return;
-            if (change.url!.contains("https://")) return;
-            print(change.url);
-            _launchURL(change.url!); //change.url!);
-          }),
-      )
-      ..setOnCanGoBackChange((onCanGoBackChangeCallback) {
-        controller.canGoBack().then((onValue) {
-          if (kDebugMode) {
-            // print(
-            //   "onValue " +
-            //       onValue.toString() +
-            //       " onCanGoBackChangeCallback " +
-            //       onCanGoBackChangeCallback.toString(),
-            // );
-          }
-          onCanGoBackChangeCallback = onValue;
-        });
-      })
-      ..setOnPlatformPermissionRequest((
-        PlatformWebViewPermissionRequest request,
-      ) {
-        debugPrint(
-          'requesting permissions for ${request.types.map((WebViewPermissionResourceType type) => type.name)}',
-        );
-        request.grant();
-      })
-      ..setAllowsBackForwardNavigationGestures(true)
-      ..getUserAgent().then((String? userAgent) {
-        controller.setUserAgent(
-          userAgent?.replaceAll("; wv", "").replaceAll("; wv", ""),
-        );
+          ..setOnPlatformPermissionRequest((
+            PlatformWebViewPermissionRequest request,
+          ) {
+            request.grant();
+          })
+          ..setAllowsBackForwardNavigationGestures(true)
+          ..getUserAgent().then((String? userAgent) {
+            controller.setUserAgent(
+              userAgent?.replaceAll("; wv", "").replaceAll("; wv", ""),
+            );
 
-        controller.loadRequest(
-          LoadRequestParams(uri: Uri.parse(urlToLoad)),
-        );
-      });
+            controller.loadRequest(
+              LoadRequestParams(uri: Uri.parse(urlToLoad)),
+            );
+          });
 
     //controller.getSettings().setMediaPlaybackRequiresUserGesture(false);
 
@@ -219,13 +207,14 @@ class _WebViewScreenState extends State<WebViewScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-        backgroundColor: Colors.black,
-        resizeToAvoidBottomInset: false,
-        child: SafeArea(
-          maintainBottomViewPadding: true,
-          child: PlatformWebViewWidget(
-            PlatformWebViewWidgetCreationParams(controller: controller),
-          ).build(context),
-        ));
+      backgroundColor: Colors.black,
+      resizeToAvoidBottomInset: false,
+      child: SafeArea(
+        maintainBottomViewPadding: true,
+        child: PlatformWebViewWidget(
+          PlatformWebViewWidgetCreationParams(controller: controller),
+        ).build(context),
+      ),
+    );
   }
 }

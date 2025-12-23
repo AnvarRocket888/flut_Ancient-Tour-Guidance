@@ -1,9 +1,4 @@
-enum ArtifactRarity {
-  common,
-  rare,
-  epic,
-  legendary,
-}
+enum ArtifactRarity { common, rare, epic, legendary }
 
 extension ArtifactRarityExtension on ArtifactRarity {
   String get name {
@@ -68,31 +63,31 @@ class Artifact {
   });
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'emoji': emoji,
-        'rarity': rarity.name,
-        'description': description,
-        'legend': legend,
-        'isUnlocked': isUnlocked,
-        'unlockedAt': unlockedAt?.toIso8601String(),
-      };
+    'id': id,
+    'name': name,
+    'emoji': emoji,
+    'rarity': rarity.name,
+    'description': description,
+    'legend': legend,
+    'isUnlocked': isUnlocked,
+    'unlockedAt': unlockedAt?.toIso8601String(),
+  };
 
   factory Artifact.fromJson(Map<String, dynamic> json) => Artifact(
-        id: json['id'],
-        name: json['name'],
-        emoji: json['emoji'],
-        rarity: ArtifactRarity.values.firstWhere(
-          (e) => e.name == json['rarity'],
-          orElse: () => ArtifactRarity.common,
-        ),
-        description: json['description'],
-        legend: json['legend'],
-        isUnlocked: json['isUnlocked'] ?? false,
-        unlockedAt: json['unlockedAt'] != null
-            ? DateTime.parse(json['unlockedAt'])
-            : null,
-      );
+    id: json['id'],
+    name: json['name'],
+    emoji: json['emoji'],
+    rarity: ArtifactRarity.values.firstWhere(
+      (e) => e.name == json['rarity'],
+      orElse: () => ArtifactRarity.common,
+    ),
+    description: json['description'],
+    legend: json['legend'],
+    isUnlocked: json['isUnlocked'] ?? false,
+    unlockedAt: json['unlockedAt'] != null
+        ? DateTime.parse(json['unlockedAt'])
+        : null,
+  );
 
   static List<Artifact> getDefaultArtifacts() {
     return [
@@ -179,8 +174,7 @@ class Artifact {
         emoji: '🪷',
         rarity: ArtifactRarity.rare,
         description: 'Symbol of creation',
-        legend:
-            'Represents rebirth and the sun, worn for spiritual awakening.',
+        legend: 'Represents rebirth and the sun, worn for spiritual awakening.',
       ),
       Artifact(
         id: 'rare_3',

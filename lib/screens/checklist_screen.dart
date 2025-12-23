@@ -31,7 +31,7 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<AppProvider>(context);
-    
+
     final completedCount = provider.completedChecklistCount;
     final totalCount = provider.totalChecklistCount;
     final percentage = provider.completionPercentage;
@@ -42,11 +42,13 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
         backgroundColor: CupertinoColors.transparent,
         navigationBar: CupertinoNavigationBar(
           backgroundColor: AppColors.secondaryBg.withValues(alpha: 0.9),
-          border: Border(bottom: BorderSide(color: AppColors.goldSecondary.withValues(alpha: 0.3), width: 1)),
-          middle: Text(
-            '✅ My Checklist',
-            style: AppStyles.titleSmall,
+          border: Border(
+            bottom: BorderSide(
+              color: AppColors.goldSecondary.withValues(alpha: 0.3),
+              width: 1,
+            ),
           ),
+          middle: Text('✅ My Checklist', style: AppStyles.titleSmall),
           trailing: CupertinoButton(
             padding: EdgeInsets.zero,
             child: Container(
@@ -57,10 +59,7 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
                   colors: [AppColors.accentPink, AppColors.goldSecondary],
                 ),
                 boxShadow: const [
-                  BoxShadow(
-                    color: AppColors.glowGold,
-                    blurRadius: 10,
-                  ),
+                  BoxShadow(color: AppColors.glowGold, blurRadius: 10),
                 ],
               ),
               child: const Icon(
@@ -78,131 +77,134 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
             },
           ),
         ),
-      child: SafeArea(
-        child: Column(
-          children: [
-            // Progress section
-            Container(
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
-              decoration: AppStyles.cardDecoration,
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '🎯 Trip Progress',
-                        style: AppStyles.titleSmall,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [AppColors.goldPrimary, AppColors.goldSecondary],
+        child: SafeArea(
+          child: Column(
+            children: [
+              // Progress section
+              Container(
+                margin: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(20),
+                decoration: AppStyles.cardDecoration,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('🎯 Trip Progress', style: AppStyles.titleSmall),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
                           ),
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: AppColors.glowGold,
-                              blurRadius: 8,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [
+                                AppColors.goldPrimary,
+                                AppColors.goldSecondary,
+                              ],
                             ),
-                          ],
-                        ),
-                        child: Text(
-                          '$completedCount/$totalCount',
-                          style: const TextStyle(
-                            color: AppColors.primaryBg,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Container(
-                      height: 16,
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryBg,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Stack(
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  AppColors.secondaryBg,
-                                  AppColors.primaryBg,
-                                ],
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: AppColors.glowGold,
+                                blurRadius: 8,
                               ),
+                            ],
+                          ),
+                          child: Text(
+                            '$completedCount/$totalCount',
+                            style: const TextStyle(
+                              color: AppColors.primaryBg,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          FractionallySizedBox(
-                            widthFactor: percentage,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  colors: [AppColors.goldPrimary, AppColors.goldSecondary],
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: AppColors.glowGold,
-                                    blurRadius: 10,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    '✨ ${(percentage * 100).toStringAsFixed(0)}% Complete ✨',
-                    style: TextStyle(
-                      color: AppColors.goldPrimary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      shadows: const [
-                        Shadow(
-                          color: AppColors.glowGold,
-                          blurRadius: 8,
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 16),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Container(
+                        height: 16,
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryBg,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    AppColors.secondaryBg,
+                                    AppColors.primaryBg,
+                                  ],
+                                ),
+                              ),
+                            ),
+                            FractionallySizedBox(
+                              widthFactor: percentage,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  gradient: const LinearGradient(
+                                    colors: [
+                                      AppColors.goldPrimary,
+                                      AppColors.goldSecondary,
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: AppColors.glowGold,
+                                      blurRadius: 10,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      '✨ ${(percentage * 100).toStringAsFixed(0)}% Complete ✨',
+                      style: TextStyle(
+                        color: AppColors.goldPrimary,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        shadows: const [
+                          Shadow(color: AppColors.glowGold, blurRadius: 8),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            // Checklist items
-            Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: provider.checklistItems.length,
-                itemBuilder: (context, index) {
-                  final item = provider.checklistItems[index];
-                  final place = provider.places.firstWhere(
-                    (p) => p.id == item.placeId,
-                  );
-                  return _ChecklistItemCard(
-                    item: item,
-                    placeName: place.name,
-                    placeEmoji: place.imageEmoji,
-                  );
-                },
+              // Checklist items
+              Expanded(
+                child: ListView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: provider.checklistItems.length,
+                  itemBuilder: (context, index) {
+                    final item = provider.checklistItems[index];
+                    final place = provider.places.firstWhere(
+                      (p) => p.id == item.placeId,
+                    );
+                    return _ChecklistItemCard(
+                      item: item,
+                      placeName: place.name,
+                      placeEmoji: place.imageEmoji,
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    )
     );
   }
 }
@@ -238,20 +240,23 @@ class _ChecklistItemCard extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: item.isCompleted 
-              ? [AppColors.goldSecondary.withValues(alpha: 0.2), AppColors.bluePrimary.withValues(alpha: 0.2)]
-              : [AppColors.secondaryBg, AppColors.primaryBg],
+            colors: item.isCompleted
+                ? [
+                    AppColors.goldSecondary.withValues(alpha: 0.2),
+                    AppColors.bluePrimary.withValues(alpha: 0.2),
+                  ]
+                : [AppColors.secondaryBg, AppColors.primaryBg],
           ),
           borderRadius: BorderRadius.circular(16),
           border: item.isCompleted
               ? Border.all(color: AppColors.goldPrimary, width: 2)
-              : Border.all(color: AppColors.goldSecondary.withValues(alpha: 0.3), width: 1),
-          boxShadow: item.isCompleted ? const [
-            BoxShadow(
-              color: AppColors.glowGold,
-              blurRadius: 12,
-            ),
-          ] : null,
+              : Border.all(
+                  color: AppColors.goldSecondary.withValues(alpha: 0.3),
+                  width: 1,
+                ),
+          boxShadow: item.isCompleted
+              ? const [BoxShadow(color: AppColors.glowGold, blurRadius: 12)]
+              : null,
         ),
         child: Row(
           children: [
@@ -262,7 +267,10 @@ class _ChecklistItemCard extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: item.isCompleted
                     ? const LinearGradient(
-                        colors: [AppColors.goldPrimary, AppColors.goldSecondary],
+                        colors: [
+                          AppColors.goldPrimary,
+                          AppColors.goldSecondary,
+                        ],
                       )
                     : null,
                 color: item.isCompleted ? null : AppColors.primaryBg,
@@ -273,12 +281,11 @@ class _ChecklistItemCard extends StatelessWidget {
                       : AppColors.goldSecondary.withValues(alpha: 0.5),
                   width: 2,
                 ),
-                boxShadow: item.isCompleted ? const [
-                  BoxShadow(
-                    color: AppColors.glowGold,
-                    blurRadius: 8,
-                  ),
-                ] : null,
+                boxShadow: item.isCompleted
+                    ? const [
+                        BoxShadow(color: AppColors.glowGold, blurRadius: 8),
+                      ]
+                    : null,
               ),
               child: item.isCompleted
                   ? const Icon(
@@ -290,10 +297,7 @@ class _ChecklistItemCard extends StatelessWidget {
             ),
             const SizedBox(width: 12),
             // Emoji
-            Text(
-              placeEmoji,
-              style: const TextStyle(fontSize: 36),
-            ),
+            Text(placeEmoji, style: const TextStyle(fontSize: 36)),
             const SizedBox(width: 12),
             // Title and date
             Expanded(
@@ -303,18 +307,19 @@ class _ChecklistItemCard extends StatelessWidget {
                   Text(
                     placeName,
                     style: TextStyle(
-                      color: item.isCompleted ? AppColors.goldPrimary : AppColors.textPrimary,
+                      color: item.isCompleted
+                          ? AppColors.goldPrimary
+                          : AppColors.textPrimary,
                       fontSize: 17,
                       fontWeight: FontWeight.w600,
                       decoration: item.isCompleted
                           ? TextDecoration.lineThrough
                           : null,
-                      shadows: item.isCompleted ? const [
-                        Shadow(
-                          color: AppColors.glowGold,
-                          blurRadius: 4,
-                        ),
-                      ] : null,
+                      shadows: item.isCompleted
+                          ? const [
+                              Shadow(color: AppColors.glowGold, blurRadius: 4),
+                            ]
+                          : null,
                     ),
                   ),
                   if (item.completedAt != null)
@@ -342,10 +347,7 @@ class _ChecklistItemCard extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: const [
-                    BoxShadow(
-                      color: AppColors.glowGold,
-                      blurRadius: 8,
-                    ),
+                    BoxShadow(color: AppColors.glowGold, blurRadius: 8),
                   ],
                 ),
                 child: const Icon(
@@ -362,7 +364,7 @@ class _ChecklistItemCard extends StatelessWidget {
 
   void _showVisitStatistics(BuildContext context, AppProvider provider) {
     final place = provider.places.firstWhere((p) => p.id == item.placeId);
-    
+
     showCupertinoDialog(
       context: context,
       barrierDismissible: true,
@@ -377,10 +379,7 @@ class _ChecklistItemCard extends StatelessWidget {
                 colors: [AppColors.secondaryBg, AppColors.primaryBg],
               ),
               borderRadius: BorderRadius.circular(24),
-              border: Border.all(
-                color: AppColors.goldPrimary,
-                width: 2,
-              ),
+              border: Border.all(color: AppColors.goldPrimary, width: 2),
               boxShadow: const [
                 BoxShadow(
                   color: AppColors.glowGold,
@@ -399,14 +398,13 @@ class _ChecklistItemCard extends StatelessWidget {
                     gradient: const LinearGradient(
                       colors: [AppColors.goldPrimary, AppColors.goldSecondary],
                     ),
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(22)),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(22),
+                    ),
                   ),
                   child: Row(
                     children: [
-                      Text(
-                        placeEmoji,
-                        style: const TextStyle(fontSize: 40),
-                      ),
+                      Text(placeEmoji, style: const TextStyle(fontSize: 40)),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Column(
@@ -440,9 +438,7 @@ class _ChecklistItemCard extends StatelessWidget {
                   Container(
                     height: 200,
                     width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: AppColors.primaryBg,
-                    ),
+                    decoration: const BoxDecoration(color: AppColors.primaryBg),
                     child: ClipRRect(
                       child: Image.file(
                         File(item.photoPath!),
@@ -467,7 +463,9 @@ class _ChecklistItemCard extends StatelessWidget {
                           ),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: AppColors.goldSecondary.withValues(alpha: 0.3),
+                            color: AppColors.goldSecondary.withValues(
+                              alpha: 0.3,
+                            ),
                           ),
                         ),
                         child: Row(
@@ -476,7 +474,10 @@ class _ChecklistItemCard extends StatelessWidget {
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 gradient: const LinearGradient(
-                                  colors: [AppColors.goldPrimary, AppColors.goldSecondary],
+                                  colors: [
+                                    AppColors.goldPrimary,
+                                    AppColors.goldSecondary,
+                                  ],
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -539,7 +540,10 @@ class _ChecklistItemCard extends StatelessWidget {
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
                                     gradient: const LinearGradient(
-                                      colors: [AppColors.bluePrimary, AppColors.accentTeal],
+                                      colors: [
+                                        AppColors.bluePrimary,
+                                        AppColors.accentTeal,
+                                      ],
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -584,7 +588,10 @@ class _ChecklistItemCard extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             decoration: BoxDecoration(
                               gradient: const LinearGradient(
-                                colors: [AppColors.accentPink, Color(0xFFFF6B6B)],
+                                colors: [
+                                  AppColors.accentPink,
+                                  Color(0xFFFF6B6B),
+                                ],
                               ),
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: const [
@@ -621,7 +628,10 @@ class _ChecklistItemCard extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             decoration: BoxDecoration(
                               gradient: const LinearGradient(
-                                colors: [AppColors.goldPrimary, AppColors.goldSecondary],
+                                colors: [
+                                  AppColors.goldPrimary,
+                                  AppColors.goldSecondary,
+                                ],
                               ),
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: const [
@@ -666,7 +676,12 @@ class _ChecklistItemCard extends StatelessWidget {
     return '${date.day}/${date.month}/${date.year}';
   }
 
-  Future<void> _pickImage(BuildContext context, AppProvider provider, String itemId, ImageSource source) async {
+  Future<void> _pickImage(
+    BuildContext context,
+    AppProvider provider,
+    String itemId,
+    ImageSource source,
+  ) async {
     try {
       final ImagePicker picker = ImagePicker();
       final XFile? image = await picker.pickImage(
@@ -680,7 +695,7 @@ class _ChecklistItemCard extends StatelessWidget {
         // Update the checklist item with photo path
         provider.updateChecklistItemPhoto(itemId, image.path);
         provider.toggleChecklistItem(itemId);
-        
+
         if (context.mounted) {
           _showSuccessMessage(context);
         }
@@ -688,16 +703,16 @@ class _ChecklistItemCard extends StatelessWidget {
     } catch (e) {
       if (context.mounted) {
         String errorMessage = 'Failed to pick image: $e';
-        
+
         // Check for camera not available error
-        if (e.toString().contains('camera_access_denied') || 
+        if (e.toString().contains('camera_access_denied') ||
             e.toString().contains('Camera not found') ||
             e.toString().toLowerCase().contains('camera')) {
-          errorMessage = source == ImageSource.camera 
+          errorMessage = source == ImageSource.camera
               ? 'Камера недоступна на симуляторе.\nИспользуйте реальное устройство или выберите фото из галереи.'
               : 'Не удалось получить доступ к галерее.';
         }
-        
+
         showCupertinoDialog(
           context: context,
           builder: (context) => CupertinoAlertDialog(
@@ -715,7 +730,11 @@ class _ChecklistItemCard extends StatelessWidget {
     }
   }
 
-  void _showPhotoOptions(BuildContext context, AppProvider provider, String itemId) {
+  void _showPhotoOptions(
+    BuildContext context,
+    AppProvider provider,
+    String itemId,
+  ) {
     showCupertinoModalPopup(
       context: context,
       builder: (context) => CupertinoActionSheet(

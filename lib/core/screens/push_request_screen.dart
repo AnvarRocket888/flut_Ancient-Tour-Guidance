@@ -58,9 +58,7 @@ class _PushRequestScreenState extends State<PushRequestScreen> {
                       width: isLandscape ? 200 : 250,
                       height: isLandscape ? 160 : 250,
                       child: const Image(
-                        image: AssetImage(
-                          AppConfig.pushRequestLogoPath,
-                        ),
+                        image: AssetImage(AppConfig.pushRequestLogoPath),
                       ),
                     ),
                   ),
@@ -139,9 +137,10 @@ class _PushRequestScreenState extends State<PushRequestScreen> {
                             child: Text(
                               'Yes, I Want Bonuses!',
                               style: TextStyle(
-                                  fontSize: isLandscape ? 18 : 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppConfig.yesButtonTextColor),
+                                fontSize: isLandscape ? 18 : 16,
+                                fontWeight: FontWeight.w600,
+                                color: AppConfig.yesButtonTextColor,
+                              ),
                             ),
                           ),
                         ),

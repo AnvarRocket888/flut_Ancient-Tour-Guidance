@@ -111,11 +111,7 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      _buildCategoryChip(
-                        'All',
-                        null,
-                        AppColors.goldPrimary,
-                      ),
+                      _buildCategoryChip('All', null, AppColors.goldPrimary),
                       const SizedBox(width: 8),
                       ...ChallengeCategory.values.map((category) {
                         return Padding(
@@ -139,16 +135,13 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final challenge = challenges[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: _buildChallengeItem(challenge, provider),
-                    );
-                  },
-                  childCount: challenges.length,
-                ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final challenge = challenges[index];
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: _buildChallengeItem(challenge, provider),
+                  );
+                }, childCount: challenges.length),
               ),
             ),
 
@@ -160,7 +153,11 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
   }
 
   Widget _buildProgressBar(
-      String emoji, String label, double progress, Color color) {
+    String emoji,
+    String label,
+    double progress,
+    Color color,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -169,10 +166,7 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
           children: [
             Row(
               children: [
-                Text(
-                  emoji,
-                  style: const TextStyle(fontSize: 16),
-                ),
+                Text(emoji, style: const TextStyle(fontSize: 16)),
                 const SizedBox(width: 8),
                 Text(
                   label,
@@ -228,7 +222,11 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
     );
   }
 
-  Widget _buildCategoryChip(String label, ChallengeCategory? category, Color color) {
+  Widget _buildCategoryChip(
+    String label,
+    ChallengeCategory? category,
+    Color color,
+  ) {
     final isSelected = _selectedCategory == category;
     return GestureDetector(
       onTap: () {
@@ -240,9 +238,7 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
           gradient: isSelected
-              ? LinearGradient(
-                  colors: [color, color.withValues(alpha: 0.7)],
-                )
+              ? LinearGradient(colors: [color, color.withValues(alpha: 0.7)])
               : null,
           color: isSelected ? null : AppColors.secondaryBg,
           borderRadius: BorderRadius.circular(20),
@@ -333,7 +329,7 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
               ),
             ),
             const SizedBox(width: 12),
-            
+
             // Challenge text
             Expanded(
               child: Column(
@@ -371,7 +367,7 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                 ],
               ),
             ),
-            
+
             // Checkbox
             Container(
               width: 28,
@@ -396,7 +392,9 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                 boxShadow: challenge.isCompleted
                     ? [
                         BoxShadow(
-                          color: challenge.category.color.withValues(alpha: 0.4),
+                          color: challenge.category.color.withValues(
+                            alpha: 0.4,
+                          ),
                           blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),

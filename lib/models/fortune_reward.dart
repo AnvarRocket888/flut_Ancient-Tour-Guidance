@@ -46,7 +46,7 @@ class FortuneReward {
         description: 'Watch the sunrise or sunset at a historic site',
         type: RewardType.mysticalQuest,
       ),
-      
+
       // Artifact Hints
       FortuneReward(
         title: 'Ancient Whispers',
@@ -60,7 +60,7 @@ class FortuneReward {
         description: 'Complete 3 challenges to unlock a legendary item',
         type: RewardType.artifactHint,
       ),
-      
+
       // Cosmic Wisdom
       FortuneReward(
         title: 'Thoth\'s Knowledge',
@@ -80,7 +80,7 @@ class FortuneReward {
         description: 'Your energy is aligned with adventure today',
         type: RewardType.cosmicWisdom,
       ),
-      
+
       // Blessings
       FortuneReward(
         title: 'Nile\'s Fortune',
@@ -94,7 +94,7 @@ class FortuneReward {
         description: 'Music and celebration surround your path',
         type: RewardType.travelerBlessing,
       ),
-      
+
       // Playful Curses
       FortuneReward(
         title: 'Sand Storm Warning',

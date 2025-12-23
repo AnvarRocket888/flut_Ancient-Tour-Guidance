@@ -20,7 +20,12 @@ class ScamWarningsScreen extends StatelessWidget {
         backgroundColor: CupertinoColors.transparent,
         navigationBar: CupertinoNavigationBar(
           backgroundColor: AppColors.secondaryBg.withValues(alpha: 0.9),
-          border: Border(bottom: BorderSide(color: AppColors.goldSecondary.withValues(alpha: 0.3), width: 1)),
+          border: Border(
+            bottom: BorderSide(
+              color: AppColors.goldSecondary.withValues(alpha: 0.3),
+              width: 1,
+            ),
+          ),
           leading: CupertinoButton(
             padding: EdgeInsets.zero,
             child: Container(
@@ -31,20 +36,18 @@ class ScamWarningsScreen extends StatelessWidget {
                 ),
                 shape: BoxShape.circle,
                 boxShadow: const [
-                  BoxShadow(
-                    color: AppColors.glowGold,
-                    blurRadius: 8,
-                  ),
+                  BoxShadow(color: AppColors.glowGold, blurRadius: 8),
                 ],
               ),
-              child: const Icon(CupertinoIcons.back, color: AppColors.textPrimary, size: 20),
+              child: const Icon(
+                CupertinoIcons.back,
+                color: AppColors.textPrimary,
+                size: 20,
+              ),
             ),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          middle: Text(
-            '🛡️ Safety Tips',
-            style: AppStyles.titleSmall,
-          ),
+          middle: Text('🛡️ Safety Tips', style: AppStyles.titleSmall),
         ),
         child: SafeArea(
           child: Column(
@@ -61,7 +64,10 @@ class ScamWarningsScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
-                          colors: [AppColors.accentPink, AppColors.goldSecondary],
+                          colors: [
+                            AppColors.accentPink,
+                            AppColors.goldSecondary,
+                          ],
                         ),
                         shape: BoxShape.circle,
                         boxShadow: const [
@@ -188,10 +194,7 @@ class _WarningCardState extends State<_WarningCard> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              AppColors.secondaryBg,
-              AppColors.primaryBg,
-            ],
+            colors: [AppColors.secondaryBg, AppColors.primaryBg],
           ),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
@@ -216,7 +219,10 @@ class _WarningCardState extends State<_WarningCard> {
                   height: 50,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [_getSeverityColor(), _getSeverityColor().withValues(alpha: 0.6)],
+                      colors: [
+                        _getSeverityColor(),
+                        _getSeverityColor().withValues(alpha: 0.6),
+                      ],
                     ),
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
@@ -245,10 +251,7 @@ class _WarningCardState extends State<_WarningCard> {
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
                           shadows: [
-                            Shadow(
-                              color: AppColors.glowGold,
-                              blurRadius: 4,
-                            ),
+                            Shadow(color: AppColors.glowGold, blurRadius: 4),
                           ],
                         ),
                       ),
@@ -273,10 +276,7 @@ class _WarningCardState extends State<_WarningCard> {
                     ),
                     borderRadius: BorderRadius.circular(8),
                     boxShadow: const [
-                      BoxShadow(
-                        color: AppColors.glowGold,
-                        blurRadius: 6,
-                      ),
+                      BoxShadow(color: AppColors.glowGold, blurRadius: 6),
                     ],
                   ),
                   child: Icon(
@@ -318,7 +318,10 @@ class _WarningCardState extends State<_WarningCard> {
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [_getSeverityColor(), _getSeverityColor().withValues(alpha: 0.7)],
+                            colors: [
+                              _getSeverityColor(),
+                              _getSeverityColor().withValues(alpha: 0.7),
+                            ],
                           ),
                           borderRadius: BorderRadius.circular(4),
                           boxShadow: [

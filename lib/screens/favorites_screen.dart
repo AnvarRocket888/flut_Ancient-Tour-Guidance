@@ -79,7 +79,8 @@ class FavoritesScreen extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context).push(
                               CupertinoPageRoute(
-                                builder: (context) => PlaceDetailScreen(place: place),
+                                builder: (context) =>
+                                    PlaceDetailScreen(place: place),
                               ),
                             );
                           },
@@ -109,7 +110,8 @@ class FavoritesScreen extends StatelessWidget {
                                 const SizedBox(width: 12),
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         place.name,
