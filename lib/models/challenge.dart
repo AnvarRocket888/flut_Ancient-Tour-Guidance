@@ -73,6 +73,26 @@ class Challenge {
         title: 'Touch a mummy at the museum',
         category: ChallengeCategory.courage,
       ),
+      Challenge(
+        id: 'courage_9',
+        title: 'Try scuba diving in Red Sea',
+        category: ChallengeCategory.courage,
+      ),
+      Challenge(
+        id: 'courage_10',
+        title: 'Walk through Cairo at night alone',
+        category: ChallengeCategory.courage,
+      ),
+      Challenge(
+        id: 'courage_11',
+        title: 'Eat falafel from street vendor',
+        category: ChallengeCategory.courage,
+      ),
+      Challenge(
+        id: 'courage_12',
+        title: 'Ride a horse to the pyramids',
+        category: ChallengeCategory.courage,
+      ),
 
       // Friendliness (8 challenges)
       Challenge(
@@ -113,6 +133,31 @@ class Challenge {
       Challenge(
         id: 'friendliness_8',
         title: 'Teach someone a phrase in your language',
+        category: ChallengeCategory.friendliness,
+      ),
+      Challenge(
+        id: 'friendliness_9',
+        title: 'Join a local for prayer at mosque',
+        category: ChallengeCategory.friendliness,
+      ),
+      Challenge(
+        id: 'friendliness_10',
+        title: 'Help translate for someone',
+        category: ChallengeCategory.friendliness,
+      ),
+      Challenge(
+        id: 'friendliness_11',
+        title: 'Give a small gift to a local child',
+        category: ChallengeCategory.friendliness,
+      ),
+      Challenge(
+        id: 'friendliness_12',
+        title: 'Attend a local celebration',
+        category: ChallengeCategory.friendliness,
+      ),
+      Challenge(
+        id: 'friendliness_13',
+        title: 'Share travel tips with another tourist',
         category: ChallengeCategory.friendliness,
       ),
 
@@ -157,6 +202,26 @@ class Challenge {
         title: 'Explore ancient ruins at dawn',
         category: ChallengeCategory.adventure,
       ),
+      Challenge(
+        id: 'adventure_9',
+        title: 'Go sandboarding in the desert',
+        category: ChallengeCategory.adventure,
+      ),
+      Challenge(
+        id: 'adventure_10',
+        title: 'Snorkel at coral reefs',
+        category: ChallengeCategory.adventure,
+      ),
+      Challenge(
+        id: 'adventure_11',
+        title: 'Ride a quad bike through sand dunes',
+        category: ChallengeCategory.adventure,
+      ),
+      Challenge(
+        id: 'adventure_12',
+        title: 'Watch sunrise from mountain top',
+        category: ChallengeCategory.adventure,
+      ),
 
       // Charisma (8 challenges)
       Challenge(
@@ -197,6 +262,26 @@ class Challenge {
       Challenge(
         id: 'charisma_8',
         title: 'Negotiate free entrance somewhere',
+        category: ChallengeCategory.charisma,
+      ),
+      Challenge(
+        id: 'charisma_9',
+        title: 'Make friends with hotel staff',
+        category: ChallengeCategory.charisma,
+      ),
+      Challenge(
+        id: 'charisma_10',
+        title: 'Get upgrade to better room/seat',
+        category: ChallengeCategory.charisma,
+      ),
+      Challenge(
+        id: 'charisma_11',
+        title: 'Lead a group tour impromptu',
+        category: ChallengeCategory.charisma,
+      ),
+      Challenge(
+        id: 'charisma_12',
+        title: 'Charm a restaurant owner for recipe',
         category: ChallengeCategory.charisma,
       ),
 
@@ -241,6 +326,31 @@ class Challenge {
         title: 'Make a video montage of your trip',
         category: ChallengeCategory.creativity,
       ),
+      Challenge(
+        id: 'creativity_9',
+        title: 'Design your own hieroglyphics',
+        category: ChallengeCategory.creativity,
+      ),
+      Challenge(
+        id: 'creativity_10',
+        title: 'Create a travel journal with drawings',
+        category: ChallengeCategory.creativity,
+      ),
+      Challenge(
+        id: 'creativity_11',
+        title: 'Make jewelry from local materials',
+        category: ChallengeCategory.creativity,
+      ),
+      Challenge(
+        id: 'creativity_12',
+        title: 'Photograph all 7 colors of sunset',
+        category: ChallengeCategory.creativity,
+      ),
+      Challenge(
+        id: 'creativity_13',
+        title: 'Cook traditional Egyptian dish',
+        category: ChallengeCategory.creativity,
+      ),
 
       // Surprise (8 challenges)
       Challenge(
@@ -281,6 +391,31 @@ class Challenge {
       Challenge(
         id: 'surprise_8',
         title: 'Learn a traditional Egyptian dance',
+        category: ChallengeCategory.surprise,
+      ),
+      Challenge(
+        id: 'surprise_9',
+        title: 'Get henna tattoo from local artist',
+        category: ChallengeCategory.surprise,
+      ),
+      Challenge(
+        id: 'surprise_10',
+        title: 'Smoke shisha for the first time',
+        category: ChallengeCategory.surprise,
+      ),
+      Challenge(
+        id: 'surprise_11',
+        title: 'Attend fortune telling session',
+        category: ChallengeCategory.surprise,
+      ),
+      Challenge(
+        id: 'surprise_12',
+        title: 'Sleep on a felucca boat',
+        category: ChallengeCategory.surprise,
+      ),
+      Challenge(
+        id: 'surprise_13',
+        title: 'Find a hidden oasis in desert',
         category: ChallengeCategory.surprise,
       ),
     ];
