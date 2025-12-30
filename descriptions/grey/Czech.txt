@@ -1,0 +1,25 @@
+ANCIENT TOUR GUIDANCE - APP STORE DESCRIPTION
+
+APP NAME: Ancient Tour Guidance
+
+SUBTITLE: Váš dokonalý společník na cestovania po Egypte
+
+DESCRIPTION:
+Objevte zázraky starověkého Egypta se svým osobním cestovním společníkem! Ancient Tour Guidance promění vaše egyptské dobrodružství v vzrušující cestu dějinami.
+Prozkoumejte známá místa jako Velká pyramida, Sfinga a Egyptské muzeum s podrobnými informacemi a průvodci lokalit. Navigujte k historickým místům s integrovanými Apple Maps. Sledujte navštívená místa a monitorujte pokrok své cesty pomocí chytrého kontrolního seznamu.
+Dokončete 48 jedinečných herních výzev v 6 kategoriích: Odvaha, Přátelskost, Dobrodružství, Charisma, Kreativita a Překvapení. Točte Kolem štěstí denně pro mystické úkoly a jedinečné odměny. Objevte a sbírejte 20 legendárních egyptských artefaktů s bohatou mytologií a tradicí. Cestujte časem a prozkoumejte klíčové historické události na každém místě s funkcí Časového portálu.
+Zůstaňte informováni s důležitými upozorněními na podvody a tipy na prevenci. Uložte své oblíbené destinace pro rychlý přístup. Zachyťte a uložte fotografie svých zážitků.
+Ideální pro turisty, nadšence historie a hledače dobrodružství navštěvující Egypt. Proměňte svou cestu v nezapomenutelný gamifikovaný zážitek!
+
+KEYWORDS:
+egypt,cestování,káhira,pyramida,sfinga,muzeum,dobrodružství,historie,turismus,průvodce,plánovač,kultura,památky
+
+PROMOTIONAL TEXT:
+Proměňte svou cestu do Egypta v epické dobrodružství! Sbírejte artefakty, plňte výzvy a objevujte starověká divy se svým dokonalým cestovním společníkem.
+
+CATEGORY:
+Primary: Cestování
+Secondary: Vzdělávání
+
+SUPPORT URL: https://ancienttourguidance.com
+PRIVACY POLICY URL: https://ancienttourguidance.com/privacy-policy.html

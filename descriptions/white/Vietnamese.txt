@@ -1,0 +1,25 @@
+ANCIENT TOUR GUIDANCE - APP STORE DESCRIPTION
+
+APP NAME: Ancient Tour Guidance
+
+SUBTITLE: Người bạn đồng hành du lịch Ai Cập tuyệt vời nhất của bạn
+
+DESCRIPTION:
+Khám phá những kỳ quan của Ai Cập cổ đại với người bạn đồng hành cá nhân của bạn! Ancient Tour Guidance biến cuộc phiêu lưu Ai Cập của bạn thành một hành trình thú vị xuyên suốt lịch sử.
+Khám phá những địa điểm nổi tiếng như Kim Tự Tháp Lớn, Tượng Nhân Sư và Bảo tàng Ai Cập với thông tin chi tiết và hướng dẫn vị trí. Điều hướng đến các di tích lịch sử với Apple Maps tích hợp. Theo dõi các địa điểm đã thăm và giám sát tiến trình chuyến đi của bạn với danh sách kiểm tra thông minh.
+Hoàn thành 48 thử thách trò chơi độc đáo trong 6 danh mục: Can Đảm, Thân Thiện, Phiêu Lưu, Sức Hút, Sáng Tạo và Bất Ngờ. Quay Bánh Xe May Mắn hàng ngày để nhận nhiệm vụ huyền bí và phần thưởng độc đáo. Khám phá và thu thập 20 hiện vật Ai Cập huyền thoại với thần化 và truyền thống phong phú. Du hành xuyên thời gian và khám phá các sự kiện lịch sử quan trọng tại mỗi địa điểm với tính năng Cổng Thời Gian.
+Luôn cập nhật thông tin với các cảnh báo lừa đảo quan trọng và mẹo phòng ngừa. Lưu các điểm đến ưa thích của bạn để truy cập nhanh chóng. Chụp và lưu trữ ảnh về trải nghiệm của bạn.
+Hoàn hảo cho khách du lịch, người đam mê lịch sử và những người tìm kiếm phiêu lưu đến thăm Ai Cập. Biến chuyến đi của bạn thành trải nghiệm gamification khó quên!
+
+KEYWORDS:
+ai cập,du lịch,cairo,kim tự tháp,tượng nhân sư,bảo tàng,phiêu lưu,lịch sử,du lịch,hướng dẫn,người lập kế hoạch,văn hóa,di tích
+
+PROMOTIONAL TEXT:
+Biến chuyến đi Ai Cập của bạn thành một cuộc phiêu lưu hoành tráng! Thu thập hiện vật, hoàn thành thử thách và khám phá những kỳ quan cổ đại với người bạn đồng hành du lịch tuyệt vời nhất của bạn.
+
+CATEGORY:
+Primary: Du lịch
+Secondary: Giáo dục
+
+SUPPORT URL: https://ancienttourguidance.com
+PRIVACY POLICY URL: https://ancienttourguidance.com/privacy-policy.html

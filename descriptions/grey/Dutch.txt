@@ -1,0 +1,25 @@
+ANCIENT TOUR GUIDANCE - APP STORE DESCRIPTION
+
+APP NAME: Ancient Tour Guidance
+
+SUBTITLE: Jouw ultieme Egypte reisgenoot
+
+DESCRIPTION:
+Ontdek de wonderen van het oude Egypte met jouw persoonlijke reisgenoot! Ancient Tour Guidance transformeert jouw Egyptische avontuur in een opwindende reis door de geschiedenis.
+Verken beroemde plaatsen zoals de Grote Piramide, Sfinx en het Egyptisch Museum met gedetailleerde informatie en locatiegidsen. Navigeer naar historische locaties met geïntegreerde Apple Maps. Houd je bezochte plaatsen bij en volg je reisvoortgang met een slimme checklist.
+Voltooi 48 unieke speluitdagingen in 6 categorieën: Moed, Vriendelijkheid, Avontuur, Charisma, Creativiteit en Verrassing. Draai dagelijks aan het Rad van Fortuin voor mystieke quests en unieke beloningen. Ontdek en verzamel 20 legendarische Egyptische artefacten met rijke mythologie en overlevering. Reis door de tijd en verken belangrijke historische gebeurtenissen op elke locatie met de Tijdportaal-functie.
+Blijf geïnformeerd met essentiële waarschuwingen voor oplichting en preventietips. Bewaar je favoriete bestemmingen voor snelle toegang. Maak en bewaar foto's van je ervaringen.
+Perfect voor toeristen, geschiedenisliefhebbers en avonturiers die Egypte bezoeken. Verander je reis in een onvergetelijke gamified ervaring!
+
+KEYWORDS:
+egypte,reizen,caïro,piramide,sfinx,museum,avontuur,geschiedenis,toerisme,gids,planner,cultuur,monumenten
+
+PROMOTIONAL TEXT:
+Verander je Egypte-reis in een episch avontuur! Verzamel artefacten, voltooi uitdagingen en verken oude wonderen met jouw ultieme reisgenoot.
+
+CATEGORY:
+Primary: Reizen
+Secondary: Educatie
+
+SUPPORT URL: https://ancienttourguidance.com
+PRIVACY POLICY URL: https://ancienttourguidance.com/privacy-policy.html

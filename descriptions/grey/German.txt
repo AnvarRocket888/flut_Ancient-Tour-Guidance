@@ -1,0 +1,25 @@
+ANCIENT TOUR GUIDANCE - APP STORE DESCRIPTION
+
+APP NAME: Ancient Tour Guidance
+
+SUBTITLE: Ihr ultimativer Ägypten-Reisebegleiter
+
+DESCRIPTION:
+Entdecken Sie die Wunder des alten Ägyptens mit Ihrem persönlichen Reisebegleiter! Ancient Tour Guidance verwandelt Ihr ägyptisches Abenteuer in eine aufregende Reise durch die Geschichte.
+Erkunden Sie berühmte Orte wie die Große Pyramide, die Sphinx und das Ägyptische Museum mit detaillierten Informationen und Standortführern. Navigieren Sie zu historischen Stätten mit integrierten Apple Maps. Verfolgen Sie Ihre besuchten Orte und überwachen Sie Ihren Reisefortschritt mit einer intelligenten Checkliste.
+Absolvieren Sie 48 einzigartige Spielherausforderungen in 6 Kategorien: Mut, Freundlichkeit, Abenteuer, Charisma, Kreativität und Überraschung. Drehen Sie täglich das Glücksrad für mystische Quests und einzigartige Belohnungen. Entdecken und sammeln Sie 20 legendäre ägyptische Artefakte mit reicher Mythologie und Überlieferung. Reisen Sie durch die Zeit und erkunden Sie wichtige historische Ereignisse an jedem Ort mit der Zeitportal-Funktion.
+Bleiben Sie informiert mit wichtigen Betrugswarnungen und Präventionstipps. Speichern Sie Ihre bevorzugten Ziele für schnellen Zugriff. Erfassen und speichern Sie Fotos Ihrer Erlebnisse.
+Perfekt für Touristen, Geschichtsbegeisterte und Abenteurer, die Ägypten besuchen. Verwandeln Sie Ihre Reise in ein unvergessliches spielerisches Erlebnis!
+
+KEYWORDS:
+ägypten,reise,kairo,pyramide,sphinx,museum,abenteuer,geschichte,tourismus,führer,planer,kultur,denkmäler
+
+PROMOTIONAL TEXT:
+Verwandeln Sie Ihre Ägyptenreise in ein episches Abenteuer! Sammeln Sie Artefakte, meistern Sie Herausforderungen und erkunden Sie antike Wunder mit Ihrem ultimativen Reisebegleiter.
+
+CATEGORY:
+Primary: Reisen
+Secondary: Bildung
+
+SUPPORT URL: https://ancienttourguidance.com
+PRIVACY POLICY URL: https://ancienttourguidance.com/privacy-policy.html

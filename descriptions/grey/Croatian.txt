@@ -1,0 +1,25 @@
+ANCIENT TOUR GUIDANCE - APP STORE DESCRIPTION
+
+APP NAME: Ancient Tour Guidance
+
+SUBTITLE: Vaš ultimativni egipatskiputni pratitelj
+
+DESCRIPTION:
+Otkrijte čuda starog Egipta sa svojim osobnim putnim pratiteljem! Ancient Tour Guidance pretvara vašu egipatsku avanturu u uzbudljivo putovanje kroz povijest.
+Istražite poznata mjesta poput Velike piramide, Sfinge i Egipatskog muzeja s detaljnim informacijama i vodicima lokacija. Navigirajte do povijesnih mjesta s integriranim Apple Maps. Pratite posjećena mjesta i pratite napredak putovanja s pametnom kontrolnom listom.
+Dovršite 48 jedinstvenih izazova igre u 6 kategorija: Hrabrost, Prijateljstvo, Avantura, Karizma, Kreativnost i Iznenađenje. Vrtite Kotač sreće svakodnevno za mistične zadatke i jedinstvene nagrade. Otkrijte i sakupite 20 legendarnih egipatskih artefakata s bogatom mitologijom i predajom. Putujte kroz vrijeme i istražite ključne povijesne događaje na svakoj lokaciji s funkcijom Vremenskog portala.
+Budite informirani s bitnim upozorenjima o prevarama i savjetima za prevenciju. Spremite svoje omiljene destinacije za brzi pristup. Snimite i pohranite fotografije svojih iskustava.
+Savršeno za turiste, ljubitelje povijesti i tražitelje avantura koji posjećuju Egipat. Pretvorite svoje putovanje u nezaboravno gamificirano iskustvo!
+
+KEYWORDS:
+egipt,putovanje,kairo,piramida,sfinga,muzej,avantura,povijest,turizam,vodič,planer,kultura,spomenici
+
+PROMOTIONAL TEXT:
+Pretvorite svoje putovanje u Egipat u epsku avanturu! Skupljajte artefakte, dovršite izazove i istražite drevna čuda sa svojim ultimativnim putnim pratiteljem.
+
+CATEGORY:
+Primary: Putovanja
+Secondary: Obrazovanje
+
+SUPPORT URL: https://ancienttourguidance.com
+PRIVACY POLICY URL: https://ancienttourguidance.com/privacy-policy.html

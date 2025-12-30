@@ -1,0 +1,25 @@
+ANCIENT TOUR GUIDANCE - APP STORE DESCRIPTION
+
+APP NAME: Ancient Tour Guidance
+
+SUBTITLE: Il tuo compagno di viaggio definitivo in Egitto
+
+DESCRIPTION:
+Scopri le meraviglie dell'antico Egitto con il tuo compagno di viaggio personale! Ancient Tour Guidance trasforma la tua avventura egiziana in un emozionante viaggio attraverso la storia.
+Esplora luoghi famosi come la Grande Piramide, la Sfinge e il Museo Egizio con informazioni dettagliate e guide di localizzazione. Naviga verso siti storici con Apple Maps integrato. Tieni traccia dei luoghi visitati e monitora i progressi del tuo viaggio con una checklist intelligente.
+Completa 48 sfide di gioco uniche in 6 categorie: Coraggio, Amicizia, Avventura, Carisma, Creatività e Sorpresa. Gira la Ruota della Fortuna ogni giorno per missioni mistiche e ricompense uniche. Scopri e colleziona 20 leggendari manufatti egiziani con ricca mitologia e tradizione. Viaggia nel tempo ed esplora eventi storici chiave in ogni località con la funzione Portale Temporale.
+Rimani informato con avvisi essenziali sulle truffe e consigli di prevenzione. Salva le tue destinazioni preferite per un accesso rapido. Cattura e conserva foto delle tue esperienze.
+Perfetto per turisti, appassionati di storia e avventurieri che visitano l'Egitto. Trasforma il tuo viaggio in un'esperienza gamificata indimenticabile!
+
+KEYWORDS:
+egitto,viaggio,cairo,piramide,sfinge,museo,avventura,storia,turismo,guida,pianificatore,cultura,monumenti
+
+PROMOTIONAL TEXT:
+Trasforma il tuo viaggio in Egitto in un'avventura epica! Raccogli manufatti, completa sfide ed esplora antiche meraviglie con il tuo compagno di viaggio definitivo.
+
+CATEGORY:
+Primary: Viaggi
+Secondary: Istruzione
+
+SUPPORT URL: https://ancienttourguidance.com
+PRIVACY POLICY URL: https://ancienttourguidance.com/privacy-policy.html

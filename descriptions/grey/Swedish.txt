@@ -1,0 +1,25 @@
+ANCIENT TOUR GUIDANCE - APP STORE DESCRIPTION
+
+APP NAME: Ancient Tour Guidance
+
+SUBTITLE: Din ultimata Egypten resekompis
+
+DESCRIPTION:
+Upptäck det gamla Egyptens underverk med din personliga resekompis! Ancient Tour Guidance förvandlar ditt egyptiska äventyr till en spännande resa genom historien.
+Utforska kända platser som den stora pyramiden, Sfinxen och Egyptiska museet med detaljerad information och platsguider. Navigera till historiska platser med integrerade Apple Maps. Spåra dina besökta platser och övervaka din reseframgång med en smart checklista.
+Slutför 48 unika spelutmaningar i 6 kategorier: Mod, Vänlighet, Äventyr, Karisma, Kreativitet och Överraskning. Snurra på Lyckans hjul dagligen för mystiska uppdrag och unika belöningar. Upptäck och samla 20 legendariska egyptiska artefakter med rik mytologi och tradition. Res genom tiden och utforska viktiga historiska händelser på varje plats med Tidsportal-funktionen.
+Håll dig informerad med viktiga bedrägerivarningar och förebyggande tips. Spara dina föredragna destinationer för snabb åtkomst. Ta och spara foton av dina upplevelser.
+Perfekt för turister, historieentusiaster och äventyrare som besöker Egypten. Förvandla din resa till en oförglömlig spelifierad upplevelse!
+
+KEYWORDS:
+egypten,resa,kairo,pyramid,sfinx,museum,äventyr,historia,turism,guide,planerare,kultur,monument
+
+PROMOTIONAL TEXT:
+Förvandla din Egyptenresa till ett episkt äventyr! Samla artefakter, slutför utmaningar och utforska uråldriga underverker med din ultimata resekompis.
+
+CATEGORY:
+Primary: Resor
+Secondary: Utbildning
+
+SUPPORT URL: https://ancienttourguidance.com
+PRIVACY POLICY URL: https://ancienttourguidance.com/privacy-policy.html

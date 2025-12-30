@@ -1,0 +1,25 @@
+ANCIENT TOUR GUIDANCE - APP STORE DESCRIPTION
+
+APP NAME: Ancient Tour Guidance
+
+SUBTITLE: Az Ön végső egyiptomi utazótársa
+
+DESCRIPTION:
+Fedezze fel az ókori Egyiptom csodáit személyes utazótársával! Az Ancient Tour Guidance izgalmas történelmi utazássá változtatja egyiptomi kalandját.
+Fedezzen fel híres helyeket, mint a Nagy Piramis, a Szfinx és az Egyiptomi Múzeum részletes információkkal és helyszíni útmutatókkal. Navigáljon történelmi helyszínekhez integrált Apple Maps-szel. Kövesse nyomon a meglátogatott helyeket és figyelje útja előrehaladását egy okos ellenőrzőlistával.
+Teljesítsen 48 egyedi játékfeladatot 6 kategóriában: Bátorság, Barátságosság, Kaland, Karizma, Kreativitás és Meglepetés. Forgassa a Szerencsekereket naponta misztikus küldetésekért és egyedi jutalmakért. Fedezzen fel és gyűjtsön 20 legendás egyiptomi műtárgyat gazdag mitológiával és hagyománnyal. Utazzon az időben és fedezzen fel kulcsfontosságú történelmi eseményeket minden helyszínen az Időportál funkcióval.
+Maradjon tájékozott lényeges csalási figyelmeztetésekkel és megelőzési tippekkel. Mentse kedvenc célállomásait gyors hozzáféréshez. Készítsen és tároljon fényképeket élményeiről.
+Tökéletes turisták, történelemrajongók és kalandvágyó utazók számára, akik Egyiptomba látogatnak. Változtassa utazását felejthetetlen játékosított élménnyé!
+
+KEYWORDS:
+egyiptom,utazás,kairó,piramis,szfinx,múzeum,kaland,történelem,turizmus,útmutató,tervező,kultur,műemlékek
+
+PROMOTIONAL TEXT:
+Változtassa egyiptomi utazását epikus kalanddá! Gyűjtsön műtárgyakat, teljesítsen kihívásokat és fedezzen fel ősi csodákat végső utazótársával.
+
+CATEGORY:
+Primary: Utazás
+Secondary: Oktatás
+
+SUPPORT URL: https://ancienttourguidance.com
+PRIVACY POLICY URL: https://ancienttourguidance.com/privacy-policy.html

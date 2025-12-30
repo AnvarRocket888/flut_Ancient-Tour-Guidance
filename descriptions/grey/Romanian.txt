@@ -1,0 +1,25 @@
+ANCIENT TOUR GUIDANCE - APP STORE DESCRIPTION
+
+APP NAME: Ancient Tour Guidance
+
+SUBTITLE: Companionul tău de călătorie suprem în Egipt
+
+DESCRIPTION:
+Descoperă minunile Egiptului antic cu companionul tău personal de călătorie! Ancient Tour Guidance transformă aventura ta egipteană într-o călătorie captivantă prin istorie.
+Explorează locuri celebre precum Marea Piramidă, Sfinxul și Muzeul Egiptean cu informații detaliate și ghiduri de locație. Navighează către situri istorice cu Apple Maps integrat. Urmărește locurile vizitate și monitorizează progresul călătoriei tale cu o listă de verificare inteligentă.
+Completează 48 de provocări de joc unice în 6 categorii: Curaj, Prietenie, Aventură, Carisma, Creativitate și Surpriză. Învârte Roata Norocului zilnic pentru misiuni mistice și recompense unice. Descoperă și colectează 20 de artefacte egiptene legendare cu mitologie și tradiție bogată. Călătorește în timp și explorează evenimente istorice cheie la fiecare locație cu funcția Portal Temporal.
+Rămâi informat cu avertismente esențiale despre înșelăciuni și sfaturi de prevenire. Salvează destinațiile tale preferate pentru acces rapid. Capturează și stochează fotografii ale experiențelor tale.
+Perfect pentru turiști, pasionați de istorie și căutători de aventuri care vizitează Egiptul. Transformă-ți călătoria într-o experiență gamificată de neuitat!
+
+KEYWORDS:
+egipt,călătorie,cairo,piramidă,sfinx,muzeu,aventură,istorie,turism,ghid,planificator,cultură,monumente
+
+PROMOTIONAL TEXT:
+Transformă-ți călătoria în Egipt într-o aventură epică! Colectează artefacte, completează provocări și explorează minuni antice cu companionul tău suprem de călătorie.
+
+CATEGORY:
+Primary: Călătorii
+Secondary: Educație
+
+SUPPORT URL: https://ancienttourguidance.com
+PRIVACY POLICY URL: https://ancienttourguidance.com/privacy-policy.html
