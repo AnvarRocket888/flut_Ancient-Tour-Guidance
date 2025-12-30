@@ -9,6 +9,7 @@ import 'checklist_screen.dart';
 import 'challenges_screen.dart';
 import 'fortune_wheel_screen.dart';
 import 'artifact_collection_screen.dart';
+import 'about_egypt_screen.dart';
 import '../core/screens/webview_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -311,22 +312,12 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 _MenuItem(
                   icon: CupertinoIcons.info_circle_fill,
-                  title: 'About Egypt',
-                  subtitle: 'Travel information',
+                  title: '🇪🇬 About Egypt',
+                  subtitle: 'Discover Egypt\'s history & culture',
                   onTap: () {
-                    showCupertinoDialog(
-                      context: context,
-                      builder: (context) => CupertinoAlertDialog(
-                        title: const Text('About Egypt'),
-                        content: const Text(
-                          'Egypt is a transcontinental country spanning the northeast corner of Africa and southwest corner of Asia. It is home to some of the world\'s most ancient monuments and archaeological sites.',
-                        ),
-                        actions: [
-                          CupertinoDialogAction(
-                            child: const Text('OK'),
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                        ],
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => const AboutEgyptScreen(),
                       ),
                     );
                   },

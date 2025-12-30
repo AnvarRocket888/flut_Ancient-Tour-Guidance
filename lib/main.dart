@@ -1,3 +1,4 @@
+import 'package:ancienttourguidance/app/clear_app.dart';
 import 'package:ancienttourguidance/core/screens/no_internet_connection.dart';
 import 'package:ancienttourguidance/core/screens/push_request_screen.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
@@ -19,7 +20,6 @@ void main() async {
   var isFirstStart = !SdkInitializer.hasValue("isFirstStart");
   var isOrganic = SdkInitializer.getValue("Organic");
   if (isFirstStart) SdkInitializer.initAppsFlyer();
-
   runApp(const App());
 }
 
@@ -47,6 +47,7 @@ class App extends StatelessWidget {
     return const CupertinoApp(
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
+      // home: ClearApp(),
       // home: PushRequestScreen(),
       // home: NoInternetConnectionScreen(),
     );
